@@ -1,0 +1,54 @@
+# Luna Theme Libraries
+# Halfmoon CSS Framework v2.0.2 + Bootstrap JS bundle
+
+halfmoon-framework:
+  version: 2.0.2
+  css:
+    base:
+      https://cdn.jsdelivr.net/npm/halfmoon@2.0.2/css/halfmoon.min.css:
+        type: external
+        minified: true
+      https://cdn.jsdelivr.net/npm/halfmoon@2.0.2/css/cores/halfmoon.cores.css:
+        type: external
+        minified: true
+  js:
+    https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js:
+      type: external
+      minified: true
+      attributes:
+        integrity: 'sha256-CDOy6cOibCWEdsRiZuaHf8dSGGJRYuBGC+mjoJimHGw='
+        crossorigin: anonymous
+
+global-styling:
+  version: VERSION
+  css:
+    theme:
+      css/luna.css: {}
+      css/luna-components.css: {}
+      css/luna-hero.css: {}
+
+luna-scripts:
+  version: VERSION
+  js:
+    js/luna.js: {}
+  dependencies:
+    - luna/halfmoon-framework
+
+# Optional per-component libraries that templates can attach selectively
+luna-hero:
+  version: VERSION
+  css:
+    theme:
+      css/luna-hero.css: {}
+
+luna-sidebar:
+  version: VERSION
+  css:
+    theme:
+      css/luna-sidebar.css: {}
+
+luna-dashboard:
+  version: VERSION
+  css:
+    theme:
+      css/luna-dashboard.css: {}

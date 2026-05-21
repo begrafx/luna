@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * form-element-label.html.twig
+ * Luna Theme — Form label with Bootstrap styling.
+ */
+#}
+{% if title is not empty -%}
+  <label{{ attributes.addClass('form-label') }}>
+    {{- title -}}
+    {%- if required %}<span class="text-danger ms-1" aria-hidden="true">*</span>{% endif -%}
+  </label>
+{%- endif %}

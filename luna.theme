@@ -1,0 +1,225 @@
+<?php
+/**
+ * Luna Theme v0.1.7
+ */
+
+/**
+ * @file
+ * Luna theme - Drupal 11 theme built on Halfmoon CSS Framework.
+ *
+ * Provides preprocessing for templates, theme settings, and Halfmoon
+ * CSS variable integration.
+ */
+
+use Drupal\Core\Template\Attribute;
+
+/**
+ * Implements hook_themes_installed().
+ *
+ * Imports config/optional YAMLs (Hero block type, fields, displays) after
+ * theme install, silently skipping any that already exist in active config.
+ * This prevents PreExistingConfigException on reinstall/upgrade.
+ */
+function luna_themes_installed($theme_list) {
+  if (!in_array('luna', $theme_list)) {
+    return;
+  }
+
+  $optional_dir = \Drupal::service('extension.list.theme')
+    ->getPath('luna') . '/config/optional';
+
+  if (!is_dir($optional_dir)) {
+    return;
+  }
+
+  $config_installer = \Drupal::service('config.installer');
+  $active_storage   = \Drupal::service('config.storage');
+
+  foreach (glob($optional_dir . '/*.yml') as $file) {
+    $config_name = basename($file, '.yml');
+    // Skip if already exists in active config.
+    if ($active_storage->exists($config_name)) {
+      continue;
+    }
+    try {
+      $config_installer->installOptionalConfig(
+        new \Drupal\Core\Config\FileStorage($optional_dir),
+        []
+      );
+      // installOptionalConfig processes all files at once; break after first call.
+      break;
+    }
+    catch (\Exception $e) {
+      // Log but do not crash — optional config is non-fatal.
+      \Drupal::logger('luna')->warning(
+        'Could not install optional config @name: @msg',
+        ['@name' => $config_name, '@msg' => $e->getMessage()]
+      );
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for HTML document templates.
+ */
+function luna_preprocess_html(&$variables) {
+  $halfmoon_core = theme_get_setting('halfmoon_core') ?? 'modern';
+  $color_mode    = theme_get_setting('color_mode') ?? 'light';
+
+  // data-bs-theme and data-bs-core go on <body> ONLY via $variables['attributes'].
+  // ($variables['html_attributes'] targets <html> — do NOT set it there.)
+  // The JS toggle also exclusively targets document.body so both stay in sync.
+  $variables['attributes']['data-bs-core']  = $halfmoon_core;
+  $variables['attributes']['data-bs-theme'] = $color_mode;
+
+  // Body classes.
+  $variables['attributes']['class'][] = 'luna-theme';
+  $variables['attributes']['class'][] = 'luna-core--' . $halfmoon_core;
+
+  // Pass settings to JS.
+  $variables['#attached']['drupalSettings']['luna'] = [
+    'halfmoonCore'   => $halfmoon_core,
+    'colorMode'      => $color_mode,
+    'darkModeToggle' => theme_get_setting('dark_mode_toggle') ?? TRUE,
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page templates.
+ */
+function luna_preprocess_page(&$variables) {
+  // Layout settings.
+  $variables['layout']           = theme_get_setting('layout') ?? 'wide';
+  $variables['sidebar_position'] = theme_get_setting('sidebar_position') ?? 'right';
+
+  // Footer text — resolved here in PHP, never called as a Twig filter.
+  $site_name = \Drupal::config('system.site')->get('name');
+  $footer_raw = theme_get_setting('footer_text');
+  $variables['footer_text'] = $footer_raw ?: ('© ' . date('Y') . ' ' . $site_name . '. Powered by Luna & Halfmoon.');
+
+  // Site info.
+  $variables['site_name']   = $site_name;
+  $variables['site_slogan'] = \Drupal::config('system.site')->get('slogan');
+
+  // Has sidebar?
+  $variables['has_sidebar_first']  = !empty($variables['page']['sidebar_first']);
+  $variables['has_sidebar_second'] = !empty($variables['page']['sidebar_second']);
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for hero block content blocks.
+ *
+ * Extracts the Hero block's field values and passes them as flat Twig
+ * variables so block--block-content--hero.html.twig stays clean.
+ */
+function luna_preprocess_block__block_content(&$variables) {
+  /** @var \Drupal\block_content\Entity\BlockContent $block */
+  $block = $variables['content']['#block_content'] ?? NULL;
+  if (!$block || $block->bundle() !== 'hero') {
+    return;
+  }
+
+  $variables['hero_heading']    = $block->hasField('field_hero_heading') && !$block->get('field_hero_heading')->isEmpty()
+    ? $block->get('field_hero_heading')->value
+    : '';
+
+  $variables['hero_subheading'] = $block->hasField('field_hero_subheading') && !$block->get('field_hero_subheading')->isEmpty()
+    ? $block->get('field_hero_subheading')->value
+    : '';
+
+  $variables['hero_cta_text']   = $block->hasField('field_hero_cta_text') && !$block->get('field_hero_cta_text')->isEmpty()
+    ? $block->get('field_hero_cta_text')->value
+    : '';
+
+  $variables['hero_cta_url']    = '';
+  if ($block->hasField('field_hero_cta_url') && !$block->get('field_hero_cta_url')->isEmpty()) {
+    $variables['hero_cta_url'] = $block->get('field_hero_cta_url')->uri;
+  }
+
+  $variables['hero_style']      = $block->hasField('field_hero_style') && !$block->get('field_hero_style')->isEmpty()
+    ? $block->get('field_hero_style')->value
+    : 'gradient';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for block templates.
+ */
+function luna_preprocess_block(&$variables) {
+  // Add Halfmoon card styling to blocks in sidebar.
+  if (isset($variables['elements']['#configuration']['region'])) {
+    $region = $variables['elements']['#configuration']['region'];
+    if (in_array($region, ['sidebar_first', 'sidebar_second'])) {
+      $variables['attributes']['class'][] = 'card';
+      $variables['attributes']['class'][] = 'mb-3';
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for node templates.
+ */
+function luna_preprocess_node(&$variables) {
+  // Add Halfmoon card classes to teaser nodes.
+  if ($variables['view_mode'] === 'teaser') {
+    $variables['attributes']['class'][] = 'card';
+    $variables['attributes']['class'][] = 'mb-4';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for field templates.
+ */
+function luna_preprocess_field(&$variables) {
+  // Style image fields.
+  if ($variables['field_type'] === 'image') {
+    $variables['attributes']['class'][] = 'luna-field-image';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for menu templates.
+ */
+function luna_preprocess_menu(&$variables) {
+  // Pass menu level to templates.
+  $variables['menu_level'] = $variables['menu_level'] ?? 0;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for views templates.
+ */
+function luna_preprocess_views_view_unformatted(&$variables) {
+  // Add Bootstrap row class.
+  $variables['attributes']['class'][] = 'row';
+  $variables['attributes']['class'][] = 'g-4';
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for page templates.
+ */
+function luna_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  // Add a suggestion for nodes being viewed in full.
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $suggestions[] = 'page__node';
+    $suggestions[] = 'page__node__' . $node->bundle();
+    $suggestions[] = 'page__node__' . $node->id();
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for block templates.
+ */
+function luna_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  if (isset($variables['elements']['#id'])) {
+    $suggestions[] = 'block__' . $variables['elements']['#id'];
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for search forms.
+ */
+function luna_form_search_block_form_alter(&$form, &$form_state) {
+  $form['keys']['#attributes']['class'][] = 'form-control';
+  $form['keys']['#attributes']['placeholder'] = t('Search…');
+  $form['actions']['submit']['#attributes']['class'][] = 'btn';
+  $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
+}

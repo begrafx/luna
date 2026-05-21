@@ -1,0 +1,801 @@
+/**
+ * Luna Theme v0.1.7
+ */
+/**
+ * luna.css
+ * Luna Theme — Custom properties, base overrides, and layout built on Halfmoon CSS.
+ * Halfmoon v2.0.2 | Bootstrap v5.3 drop-in replacement
+ */
+
+/* ============================================================
+   LUNA CUSTOM PROPERTIES
+   Extends Halfmoon's CSS variable system
+   ============================================================ */
+
+:root {
+  /* Luna brand palette */
+  --luna-primary:          #6366f1; /* indigo */
+  --luna-primary-hover:    #4f46e5;
+  --luna-secondary:        #a78bfa; /* violet */
+  --luna-accent:           #22d3ee; /* cyan */
+  --luna-gold:             #f59e0b; /* amber */
+
+  /* Typography */
+  --luna-font-heading:     'DM Serif Display', 'Georgia', serif;
+  --luna-font-body:        'DM Sans', system-ui, sans-serif;
+  --luna-font-mono:        'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Hero */
+  --luna-hero-min-height:  560px;
+  --luna-hero-gradient:    linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 70%, #6366f1 100%);
+  --luna-hero-text:        #ffffff;
+  --luna-hero-subtext:     rgba(255, 255, 255, 0.82);
+
+  /* Layout */
+  --luna-navbar-height:    64px;
+  --luna-sidebar-width:    280px;
+  --luna-content-gap:      2rem;
+  --luna-section-padding:  4rem 0;
+  --luna-border-radius-lg: 1rem;
+  --luna-border-radius-xl: 1.5rem;
+
+  /* Shadows */
+  --luna-shadow-sm:        0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --luna-shadow-md:        0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
+  --luna-shadow-lg:        0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -2px rgba(0,0,0,.05);
+  --luna-shadow-glow:      0 0 30px rgba(99,102,241,.25);
+
+  /* Transitions */
+  --luna-transition-base:  all .2s ease;
+  --luna-transition-slow:  all .4s ease;
+
+  /* Override Halfmoon accent color with Luna primary */
+  --bs-primary:            #6366f1;
+  --bs-primary-rgb:        99, 102, 241;
+  --bs-link-color:         #6366f1;
+  --bs-link-hover-color:   #4f46e5;
+}
+
+/* ============================================================
+   DARK MODE — Explicit overrides
+   Halfmoon scopes its dark variables to :root[data-bs-theme="dark"]
+   or html[data-bs-theme="dark"]. Drupal may place the attribute on
+   <body> instead of <html>. We cover both selectors everywhere to
+   guarantee the full page switches — navbar, footer, offcanvas, etc.
+   ============================================================ */
+
+/* Light mode explicit vars (ensures clean state when switching back) */
+:root,
+html[data-bs-theme="light"],
+body[data-bs-theme="light"] {
+  --luna-surface-bg:     #ffffff;
+  --luna-surface-border: #e2e8f0;
+  --luna-navbar-bg:      rgba(255, 255, 255, 0.92);
+  --luna-footer-bg:      #ffffff;
+  --luna-hero-gradient:  linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 70%, #6366f1 100%);
+}
+
+/* Dark mode vars — both html and body targets */
+html[data-bs-theme="dark"],
+body[data-bs-theme="dark"] {
+  --luna-surface-bg:     #1e1e2e;
+  --luna-surface-border: #2d2d3f;
+  --luna-navbar-bg:      rgba(15, 12, 41, 0.92);
+  --luna-footer-bg:      #13131f;
+  --luna-hero-gradient:  linear-gradient(135deg, #0f0c29 0%, #1e1b4b 40%, #302b63 70%, #24243e 100%);
+
+  /* Override Bootstrap/Halfmoon body variables directly so bg-body,
+     bg-body-secondary, text-body etc. all respond correctly even when
+     the attribute is on <body> rather than :root / <html>. */
+  --bs-body-bg:             #1e1e2e;
+  --bs-body-bg-rgb:         30, 30, 46;
+  --bs-body-color:          #cdd6f4;
+  --bs-body-color-rgb:      205, 214, 244;
+  --bs-secondary-bg:        #181825;
+  --bs-secondary-bg-rgb:    24, 24, 37;
+  --bs-tertiary-bg:         #13131f;
+  --bs-tertiary-bg-rgb:     19, 19, 31;
+  --bs-secondary-color:     rgba(205, 214, 244, 0.65);
+  --bs-border-color:        #2d2d3f;
+  --bs-border-color-translucent: rgba(255, 255, 255, 0.1);
+  --bs-heading-color:       #cdd6f4;
+  --bs-link-color:          #a78bfa;
+  --bs-link-hover-color:    #c4b5fd;
+  --bs-code-color:          #a78bfa;
+  --bs-emphasis-color:      #ffffff;
+  --bs-card-bg:             #1e1e2e;
+  --bs-card-cap-bg:         rgba(255,255,255,.04);
+  --bs-content-bg:          #1e1e2e;
+}
+
+/* Ensure the smooth transition applies to every key surface */
+body,
+.luna-navbar,
+.luna-footer,
+.luna-header-region,
+.offcanvas,
+.card,
+.modal-content,
+.dropdown-menu,
+.list-group-item,
+.form-control,
+.form-select,
+.input-group-text {
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+
+/* Explicit navbar dark background — overrides backdrop + bg-body */
+html[data-bs-theme="dark"] .luna-navbar,
+body[data-bs-theme="dark"] .luna-navbar {
+  background-color: var(--luna-navbar-bg) !important;
+  border-bottom-color: var(--luna-surface-border);
+}
+
+/* Explicit footer dark background */
+html[data-bs-theme="dark"] .luna-footer,
+body[data-bs-theme="dark"] .luna-footer {
+  background-color: var(--luna-footer-bg) !important;
+  border-top-color: var(--luna-surface-border);
+}
+
+/* Header region (search bar strip above/below navbar) */
+html[data-bs-theme="dark"] .luna-header-region,
+body[data-bs-theme="dark"] .luna-header-region {
+  background-color: var(--luna-footer-bg) !important;
+  border-bottom-color: var(--luna-surface-border);
+}
+
+/* Offcanvas mobile menu */
+html[data-bs-theme="dark"] .offcanvas,
+body[data-bs-theme="dark"] .offcanvas {
+  background-color: #13131f !important;
+}
+
+/* Cards */
+html[data-bs-theme="dark"] .card,
+body[data-bs-theme="dark"] .card {
+  background-color: var(--bs-card-bg, #1e1e2e);
+  border-color: var(--luna-surface-border);
+}
+
+/* Dropdowns */
+html[data-bs-theme="dark"] .dropdown-menu,
+body[data-bs-theme="dark"] .dropdown-menu {
+  background-color: #1e1e2e;
+  border-color: var(--luna-surface-border);
+}
+
+html[data-bs-theme="dark"] .dropdown-item,
+body[data-bs-theme="dark"] .dropdown-item {
+  color: var(--bs-body-color, #cdd6f4);
+}
+
+html[data-bs-theme="dark"] .dropdown-item:hover,
+body[data-bs-theme="dark"] .dropdown-item:hover {
+  background-color: rgba(99, 102, 241, .15);
+}
+
+/* Form controls */
+html[data-bs-theme="dark"] .form-control,
+html[data-bs-theme="dark"] .form-select,
+body[data-bs-theme="dark"] .form-control,
+body[data-bs-theme="dark"] .form-select {
+  background-color: #181825;
+  border-color: var(--luna-surface-border);
+  color: var(--bs-body-color, #cdd6f4);
+}
+
+html[data-bs-theme="dark"] .input-group-text,
+body[data-bs-theme="dark"] .input-group-text {
+  background-color: #13131f;
+  border-color: var(--luna-surface-border);
+  color: var(--bs-secondary-color);
+}
+
+/* List groups */
+html[data-bs-theme="dark"] .list-group-item,
+body[data-bs-theme="dark"] .list-group-item {
+  background-color: #1e1e2e;
+  border-color: var(--luna-surface-border);
+  color: var(--bs-body-color, #cdd6f4);
+}
+
+/* Footer links in dark mode */
+html[data-bs-theme="dark"] .luna-footer-links a,
+body[data-bs-theme="dark"] .luna-footer-links a {
+  color: var(--bs-secondary-color);
+}
+
+/* Footer bottom border */
+html[data-bs-theme="dark"] .luna-footer-bottom,
+body[data-bs-theme="dark"] .luna-footer-bottom {
+  border-top-color: var(--luna-surface-border);
+}
+
+/* Sidebar nav */
+html[data-bs-theme="dark"] .luna-sidebar-nav,
+body[data-bs-theme="dark"] .luna-sidebar-nav {
+  background-color: #1e1e2e;
+  border-color: var(--luna-surface-border);
+}
+
+/* Tables */
+html[data-bs-theme="dark"] .table,
+body[data-bs-theme="dark"] .table {
+  --bs-table-bg: #1e1e2e;
+  --bs-table-striped-bg: #181825;
+  --bs-table-hover-bg: rgba(99,102,241,.08);
+  color: var(--bs-body-color, #cdd6f4);
+  border-color: var(--luna-surface-border);
+}
+
+/* Breadcrumb */
+html[data-bs-theme="dark"] .luna-breadcrumb,
+body[data-bs-theme="dark"] .luna-breadcrumb {
+  border-bottom-color: var(--luna-surface-border);
+}
+
+/* Alerts in dark mode */
+html[data-bs-theme="dark"] .alert,
+body[data-bs-theme="dark"] .alert {
+  border-color: var(--luna-surface-border);
+}
+
+/* Toasts */
+html[data-bs-theme="dark"] .toast,
+body[data-bs-theme="dark"] .toast {
+  background-color: #1e1e2e;
+  border-color: var(--luna-surface-border);
+}
+
+/* Modals */
+html[data-bs-theme="dark"] .modal-content,
+body[data-bs-theme="dark"] .modal-content {
+  background-color: #1e1e2e;
+  border-color: var(--luna-surface-border);
+}
+
+html[data-bs-theme="dark"] .modal-header,
+html[data-bs-theme="dark"] .modal-footer,
+body[data-bs-theme="dark"] .modal-header,
+body[data-bs-theme="dark"] .modal-footer {
+  border-color: var(--luna-surface-border);
+}
+
+/* Accordion */
+html[data-bs-theme="dark"] .accordion-item,
+body[data-bs-theme="dark"] .accordion-item {
+  background-color: #1e1e2e;
+  border-color: var(--luna-surface-border);
+}
+
+html[data-bs-theme="dark"] .accordion-button,
+body[data-bs-theme="dark"] .accordion-button {
+  background-color: #181825;
+  color: var(--bs-body-color, #cdd6f4);
+}
+
+html[data-bs-theme="dark"] .accordion-button::after,
+body[data-bs-theme="dark"] .accordion-button::after {
+  filter: invert(1);
+}
+
+html[data-bs-theme="dark"] .accordion-button:not(.collapsed),
+body[data-bs-theme="dark"] .accordion-button:not(.collapsed) {
+  background-color: rgba(99,102,241,.15);
+}
+
+/* Pre / code blocks */
+html[data-bs-theme="dark"] pre,
+body[data-bs-theme="dark"] pre {
+  background-color: #13131f;
+  border-color: var(--luna-surface-border);
+  color: #cdd6f4;
+}
+
+html[data-bs-theme="dark"] code,
+body[data-bs-theme="dark"] code {
+  background-color: rgba(167, 139, 250, .15);
+  color: #a78bfa;
+}
+
+/* Popovers */
+html[data-bs-theme="dark"] .popover,
+body[data-bs-theme="dark"] .popover {
+  background-color: #1e1e2e;
+  border-color: var(--luna-surface-border);
+}
+
+html[data-bs-theme="dark"] .popover-header,
+body[data-bs-theme="dark"] .popover-header {
+  background-color: #181825;
+  border-bottom-color: var(--luna-surface-border);
+  color: #cdd6f4;
+}
+
+html[data-bs-theme="dark"] .popover-body,
+body[data-bs-theme="dark"] .popover-body {
+  color: var(--bs-secondary-color);
+}
+
+
+/* ============================================================
+   GOOGLE FONTS IMPORT
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ============================================================
+   BASE TYPOGRAPHY
+   ============================================================ */
+
+body {
+  font-family: var(--luna-font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Ensure body background always uses the Halfmoon CSS variable so
+     dark mode (data-bs-theme="dark" on <html>) propagates correctly
+     to the full page, not just individual components. */
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  transition: background-color .25s ease, color .25s ease;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--luna-font-heading);
+  letter-spacing: -0.01em;
+}
+
+code, pre, kbd, samp {
+  font-family: var(--luna-font-mono);
+}
+
+/* ============================================================
+   LUNA NAVBAR
+   ============================================================ */
+
+.luna-navbar {
+  min-height: var(--luna-navbar-height);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--bs-border-color);
+  /* Explicit background — do NOT use bg-body class which reads from :root only */
+  background-color: var(--luna-navbar-bg) !important;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  transition: background-color .25s ease, border-color .25s ease;
+}
+
+/* ── Drupal Admin Toolbar compatibility ───────────────────────
+   Drupal's toolbar module adds .toolbar-fixed/.toolbar-tray-open to <body>.
+   Lower the Luna navbar z-index so admin dropdown trays render above it.
+   ──────────────────────────────────────────────────────────── */
+.toolbar-fixed .luna-navbar,
+.toolbar-tray-open .luna-navbar,
+.toolbar-vertical .luna-navbar {
+  z-index: 499;
+}
+
+/* Use Drupal's toolbar height CSS custom properties to offset sticky top */
+@supports (top: var(--drupal-toolbar-height, 0px)) {
+  .toolbar-fixed .luna-navbar {
+    top: var(--drupal-toolbar-height, 0px);
+  }
+  .toolbar-fixed.toolbar-tray-open .luna-navbar {
+    top: calc(var(--drupal-toolbar-height, 0px) + var(--drupal-toolbar-secondary-height, 0px));
+  }
+}
+
+/* ── Primary nav wrapper ──────────────────────────────────────
+   Drupal wraps the menu block in a <div class="block ..."> before the <ul>.
+   We need every wrapper element to be flex so the horizontal nav-items
+   line up correctly inside the navbar.
+   ──────────────────────────────────────────────────────────── */
+.luna-primary-nav,
+.luna-primary-nav > .block,
+.luna-primary-nav > div,
+.luna-primary-nav > nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Header region explicit background (replaces removed bg-body class) */
+.luna-header-region {
+  background-color: var(--luna-navbar-bg);
+  transition: background-color .25s ease;
+}
+
+.luna-navbar .navbar-brand {
+  font-family: var(--luna-font-heading);
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  color: var(--luna-primary);
+}
+
+.luna-navbar .navbar-brand .luna-logo-icon {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background: var(--luna-primary);
+  border-radius: 50%;
+  margin-right: .5rem;
+  vertical-align: middle;
+  position: relative;
+  overflow: hidden;
+}
+
+.luna-navbar .navbar-brand .luna-logo-icon::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 20px;
+  height: 20px;
+  background: var(--bs-body-bg, #fff);
+  border-radius: 50%;
+  opacity: .85;
+}
+
+.luna-navbar .nav-link {
+  font-weight: 500;
+  font-size: .925rem;
+  transition: var(--luna-transition-base);
+}
+
+.luna-navbar .nav-link:hover {
+  color: var(--luna-primary) !important;
+}
+
+/* Dark mode toggle button */
+.luna-dark-toggle {
+  background: none;
+  border: 1.5px solid var(--bs-border-color);
+  border-radius: 50px;
+  padding: .3rem .75rem;
+  cursor: pointer;
+  font-size: .85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  transition: var(--luna-transition-base);
+  color: var(--bs-body-color);
+}
+
+.luna-dark-toggle:hover {
+  border-color: var(--luna-primary);
+  color: var(--luna-primary);
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+
+.luna-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.luna-main {
+  flex: 1;
+}
+
+.luna-page {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+/* ── Sidebar layouts ──────────────────────────────────────────
+   Four cases handled in page.html.twig:
+   1. No sidebars       — full width
+   2. Sidebar First     — left sidebar  | content
+   3. Sidebar Second    — content       | right sidebar
+   4. Both sidebars     — left | content | right (3-column)
+   ──────────────────────────────────────────────────────────── */
+
+/* Two-column layout base */
+.luna-layout-sidebar {
+  display: grid;
+  gap: var(--luna-content-gap);
+  align-items: start;
+}
+
+@media (min-width: 992px) {
+  /* Right sidebar only: content | sidebar */
+  .luna-layout-sidebar.sidebar-right {
+    grid-template-columns: 1fr var(--luna-sidebar-width);
+  }
+  /* Left sidebar only: sidebar | content */
+  .luna-layout-sidebar.sidebar-left {
+    grid-template-columns: var(--luna-sidebar-width) 1fr;
+  }
+  .luna-content-area { min-width: 0; }
+  .luna-sidebar-area { min-width: 0; }
+}
+
+/* Three-column layout: left sidebar | content | right sidebar */
+.luna-layout-three-col {
+  display: grid;
+  gap: var(--luna-content-gap);
+  align-items: start;
+}
+
+@media (min-width: 992px) {
+  .luna-layout-three-col {
+    grid-template-columns: var(--luna-sidebar-width) 1fr var(--luna-sidebar-width);
+  }
+}
+
+/* Sidebar sticky positioning */
+.luna-sidebar-first,
+.luna-sidebar-second,
+.luna-sidebar-area {
+  min-width: 0;
+}
+
+@media (min-width: 992px) {
+  .luna-sidebar-first,
+  .luna-sidebar-second,
+  .luna-sidebar-area {
+    position: sticky;
+    top: calc(var(--luna-navbar-height) + 1rem);
+    max-height: calc(100vh - var(--luna-navbar-height) - 2rem);
+    overflow-y: auto;
+  }
+}
+
+/* ============================================================
+   SECTION SPACING
+   ============================================================ */
+
+.luna-section {
+  padding: var(--luna-section-padding);
+}
+
+.luna-section--sm { padding: 2rem 0; }
+.luna-section--lg { padding: 6rem 0; }
+
+/* ============================================================
+   CARDS — extend Halfmoon/Bootstrap card
+   ============================================================ */
+
+.luna-card {
+  border-radius: var(--luna-border-radius-lg) !important;
+  box-shadow: var(--luna-shadow-md);
+  transition: var(--luna-transition-base);
+  overflow: hidden;
+}
+
+.luna-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--luna-shadow-lg);
+}
+
+.luna-card-featured {
+  border-top: 4px solid var(--luna-primary);
+}
+
+.luna-card-glow:hover {
+  box-shadow: var(--luna-shadow-glow);
+}
+
+/* ============================================================
+   BADGES
+   ============================================================ */
+
+.luna-badge {
+  font-family: var(--luna-font-body);
+  font-weight: 600;
+  letter-spacing: .03em;
+  font-size: .7rem;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   BUTTONS — Luna overrides
+   ============================================================ */
+
+.btn-luna-primary {
+  background: linear-gradient(135deg, var(--luna-primary), var(--luna-secondary));
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: .01em;
+  transition: var(--luna-transition-base);
+  box-shadow: 0 4px 14px rgba(99,102,241,.4);
+}
+
+.btn-luna-primary:hover {
+  background: linear-gradient(135deg, var(--luna-primary-hover), var(--luna-primary));
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(99,102,241,.5);
+}
+
+.btn-luna-outline {
+  border: 2px solid var(--luna-primary);
+  color: var(--luna-primary);
+  background: transparent;
+  font-weight: 600;
+  transition: var(--luna-transition-base);
+}
+
+.btn-luna-outline:hover {
+  background: var(--luna-primary);
+  color: #fff;
+}
+
+/* ============================================================
+   ALERTS — Custom Luna styled
+   ============================================================ */
+
+.luna-alert {
+  border-left: 4px solid;
+  border-radius: var(--luna-border-radius-lg);
+}
+
+/* ============================================================
+   BREADCRUMB
+   ============================================================ */
+
+.luna-breadcrumb {
+  padding: .75rem 0;
+  font-size: .875rem;
+  border-bottom: 1px solid var(--bs-border-color);
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.luna-footer {
+  padding: 3rem 0 1.5rem;
+  border-top: 1px solid var(--bs-border-color);
+  margin-top: auto;
+  background-color: var(--luna-footer-bg);
+  transition: background-color .25s ease, border-color .25s ease;
+}
+
+.luna-footer .luna-footer-logo {
+  font-family: var(--luna-font-heading);
+  font-size: 1.4rem;
+  color: var(--luna-primary);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.luna-footer .luna-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.luna-footer .luna-footer-links li + li {
+  margin-top: .4rem;
+}
+
+.luna-footer .luna-footer-links a {
+  color: var(--bs-secondary-color);
+  text-decoration: none;
+  font-size: .9rem;
+  transition: var(--luna-transition-base);
+}
+
+.luna-footer .luna-footer-links a:hover {
+  color: var(--luna-primary);
+}
+
+.luna-footer-bottom {
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--bs-border-color);
+  font-size: .85rem;
+  color: var(--bs-secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+/* ============================================================
+   MESSAGES
+   ============================================================ */
+
+.luna-messages .alert {
+  border-radius: var(--luna-border-radius-lg);
+  border-left: 4px solid;
+}
+
+/* ============================================================
+   SKIP LINK ACCESSIBILITY
+   ============================================================ */
+
+.luna-skip-link {
+  position: absolute;
+  top: -999px;
+  left: -999px;
+  background: var(--luna-primary);
+  color: #fff;
+  padding: .5rem 1rem;
+  border-radius: 0 0 .5rem 0;
+  font-weight: 600;
+  z-index: 9999;
+  text-decoration: none;
+  transition: top .2s, left .2s;
+}
+
+.luna-skip-link:focus {
+  top: 0;
+  left: 0;
+  color: #fff;
+}
+
+/* =========================
+   Upcoming Sermons View
+========================= */
+
+.upcoming-sermons .view-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.25rem;
+  color: #2f3b52;
+}
+
+.upcoming-sermons .views-row {
+  margin-bottom: 1.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.upcoming-sermons .views-field-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 0.35rem;
+}
+
+.upcoming-sermons .views-field-title a {
+  text-decoration: none;
+  color: #234ea0;
+}
+
+.upcoming-sermons .views-field-title a:hover {
+  text-decoration: underline;
+  color: #18356f;
+}
+
+.upcoming-sermons .views-field-speaker,
+.upcoming-sermons .views-field-field-speaker {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 0.2rem;
+}
+
+.upcoming-sermons .views-field-sermon-date,
+.upcoming-sermons .views-field-field-sermon-date {
+  font-size: 0.95rem;
+  color: #777;
+}
+
+/* ============================================================
+   RESPONSIVE UTILITIES
+   ============================================================ */
+
+@media (max-width: 991.98px) {
+  .luna-sidebar-area {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  :root {
+    --luna-section-padding: 2.5rem 0;
+    --luna-hero-min-height: 400px;
+  }
+}

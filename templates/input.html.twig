@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * input.html.twig
+ * Luna Theme — Input element with Bootstrap form classes.
+ */
+#}
+{% if element['#type'] in ['submit', 'button', 'image_button'] %}
+  {% set classes = ['btn'] %}
+  {% if element['#button_type'] == 'primary' %}
+    {% set classes = classes|merge(['btn-primary']) %}
+  {% elseif element['#button_type'] == 'danger' %}
+    {% set classes = classes|merge(['btn-danger']) %}
+  {% else %}
+    {% set classes = classes|merge(['btn-secondary']) %}
+  {% endif %}
+  <input{{ attributes.addClass(classes) }}>
+{% else %}
+  {% set classes = ['form-control'] %}
+  {% if element['#type'] == 'checkbox' or element['#type'] == 'radio' %}
+    {% set classes = ['form-check-input'] %}
+  {% endif %}
+  <input{{ attributes.addClass(classes) }}>
+{% endif %}

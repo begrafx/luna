@@ -1,0 +1,45 @@
+name: Luna
+type: theme
+description: 'A sleek, modern Drupal 11 theme built on the Halfmoon CSS framework. Features dark/light mode, responsive layouts, hero sections, and all Halfmoon components.'
+package: Custom
+version: '0.1.7'
+core_version_requirement: ^11
+base theme: false
+
+dependencies:
+  - drupal:block_content
+  - drupal:link
+  - drupal:options
+
+libraries:
+  - luna/global-styling
+  - luna/halfmoon-framework
+  - luna/luna-scripts
+
+regions:
+  header: 'Header'
+  hero: 'Hero'
+  primary_menu: 'Primary Menu'
+  secondary_menu: 'Secondary Menu'
+  page_top: 'Page Top'
+  page_bottom: 'Page Bottom'
+  breadcrumb: 'Breadcrumb'
+  highlighted: 'Highlighted'
+  content_top: 'Content Top'
+  content: 'Content'
+  content_bottom: 'Content Bottom'
+  sidebar_first: 'Sidebar First'
+  sidebar_second: 'Sidebar Second'
+  footer_first: 'Footer First'
+  footer_second: 'Footer Second'
+  footer_third: 'Footer Third'
+  offcanvas: 'Off-Canvas'
+
+features:
+  - logo
+  - favicon
+  - node_user_picture
+  - comment_user_picture
+  - comment_user_verification
+
+screenshot: screenshot.png

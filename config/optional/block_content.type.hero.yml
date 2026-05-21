@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {}
+id: hero
+label: 'Hero'
+revision: false
+description: 'A full-width hero section with heading, subheading, CTA button, and style options. Place in the Hero region.'

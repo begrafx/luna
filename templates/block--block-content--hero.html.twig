@@ -1,0 +1,158 @@
+{#
+/**
+ * @file
+ * block--block-content--hero.html.twig
+ * Luna Theme — Hero block template.
+ *
+ * Renders a block_content entity of bundle "hero" as the full Luna
+ * hero section. Field values are extracted by luna_preprocess_block__block_content()
+ * in luna.theme and passed as flat variables:
+ *
+ *   hero_heading    — plain text (may contain safe HTML like <em>)
+ *   hero_subheading — plain text paragraph
+ *   hero_cta_text   — button label
+ *   hero_cta_url    — button destination URI
+ *   hero_style      — gradient | dark | light
+ *
+ * To manage this content: Structure → Block layout → Custom block library
+ * Find your Hero block and click Edit.
+ */
+#}
+
+{% set style = hero_style|default('gradient') %}
+
+<section class="luna-hero luna-hero--{{ style }}"
+         aria-label="{{ 'Hero'|t }}"
+         {{ attributes }}>
+
+  {# Decorative grid overlay #}
+  <div class="luna-hero__grid-pattern" aria-hidden="true"></div>
+
+  <div class="container-xl">
+    <div class="row align-items-center g-5">
+
+      {# ── Left: text content ─────────────────────────────── #}
+      <div class="col-lg-7">
+        <div class="luna-hero__content">
+
+          <span class="luna-hero__eyebrow">
+            ✦ &nbsp;{{ 'Halfmoon CSS + Drupal 11'|t }}
+          </span>
+
+          {% if hero_heading %}
+            <h1 class="luna-hero__title">{{ hero_heading|raw }}</h1>
+          {% endif %}
+
+          {% if hero_subheading %}
+            <p class="luna-hero__subtitle">{{ hero_subheading }}</p>
+          {% endif %}
+
+          {% if hero_cta_text or hero_cta_url %}
+            <div class="luna-hero__actions">
+              {% if hero_cta_text and hero_cta_url %}
+                <a href="{{ hero_cta_url }}" class="btn btn-lg btn-gradient">
+                  {{ hero_cta_text }}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                       fill="currentColor" class="ms-2" viewBox="0 0 16 16" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                          d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                  </svg>
+                </a>
+              {% elseif hero_cta_text %}
+                <span class="btn btn-lg btn-gradient">{{ hero_cta_text }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+
+        </div>
+      </div>
+
+      {# ── Right: decorative mockup card (hidden on mobile) ── #}
+      <div class="col-lg-5 d-none d-lg-block">
+        <div class="luna-hero__visual">
+          <div class="luna-hero__mockup">
+
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <span class="fw-bold" style="color:rgba(255,255,255,.9);">
+                {{ site_name ?: 'My Site' }}
+              </span>
+              <span class="badge rounded-pill bg-success">{{ 'Live'|t }}</span>
+            </div>
+
+            {# Mini stat tiles #}
+            <div class="row g-2 mb-3">
+              <div class="col-4">
+                <div class="p-2 rounded text-center"
+                     style="background:rgba(255,255,255,.08);">
+                  <div class="fw-bold fs-5" style="color:#22d3ee;">—</div>
+                  <div style="color:rgba(255,255,255,.6);font-size:.65rem;">
+                    {{ 'Nodes'|t }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="p-2 rounded text-center"
+                     style="background:rgba(255,255,255,.08);">
+                  <div class="fw-bold fs-5" style="color:#a78bfa;">—</div>
+                  <div style="color:rgba(255,255,255,.6);font-size:.65rem;">
+                    {{ 'Users'|t }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="p-2 rounded text-center"
+                     style="background:rgba(255,255,255,.08);">
+                  <div class="fw-bold fs-5" style="color:#f59e0b;">—</div>
+                  <div style="color:rgba(255,255,255,.6);font-size:.65rem;">
+                    {{ 'Comments'|t }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {# Mini progress bars #}
+            <div class="mb-2">
+              <div class="d-flex justify-content-between mb-1"
+                   style="font-size:.72rem;color:rgba(255,255,255,.7);">
+                <span>{{ 'Performance'|t }}</span><span>92%</span>
+              </div>
+              <div class="progress" style="height:5px;">
+                <div class="progress-bar"
+                     style="width:92%;background:linear-gradient(90deg,#6366f1,#22d3ee);">
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-1"
+                   style="font-size:.72rem;color:rgba(255,255,255,.7);">
+                <span>{{ 'Accessibility'|t }}</span><span>98%</span>
+              </div>
+              <div class="progress" style="height:5px;">
+                <div class="progress-bar"
+                     style="width:98%;background:linear-gradient(90deg,#10b981,#22d3ee);">
+                </div>
+              </div>
+            </div>
+
+            {% if hero_cta_text and hero_cta_url %}
+              <a href="{{ hero_cta_url }}"
+                 class="btn btn-sm btn-gradient w-100">
+                {{ hero_cta_text }}
+              </a>
+            {% endif %}
+
+          </div>{# /.luna-hero__mockup #}
+        </div>
+      </div>
+
+    </div>{# /row #}
+  </div>{# /container-xl #}
+
+  {# Scroll indicator #}
+  <a href="#main-content" class="luna-hero__scroll"
+     aria-label="{{ 'Scroll down'|t }}">
+    <span class="luna-hero__scroll-arrow" aria-hidden="true"></span>
+    <span>{{ 'Scroll'|t }}</span>
+  </a>
+
+</section>

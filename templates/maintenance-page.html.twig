@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * maintenance-page.html.twig
+ * Luna Theme — Maintenance / offline page.
+ */
+#}
+<!DOCTYPE html>
+<html{{ html_attributes }}>
+  <head>
+    <head-placeholder token="{{ placeholder_token }}">
+    <title>{{ head_title|safe_join(' | ') }}</title>
+    <css-placeholder token="{{ placeholder_token }}">
+    <js-placeholder token="{{ placeholder_token }}">
+  </head>
+  <body class="luna-wrapper luna-maintenance">
+    <div class="d-flex align-items-center justify-content-center min-vh-100 bg-body">
+      <div class="text-center p-4" style="max-width:480px;">
+        <div class="mb-4" aria-hidden="true" style="font-size:4rem;">🌙</div>
+        <h1 class="h2 fw-bold mb-3" style="font-family:var(--luna-font-heading,serif);">
+          {{ 'Site Maintenance'|t }}
+        </h1>
+        <p class="text-secondary mb-4">
+          {{ 'The site is currently undergoing maintenance. Please check back shortly.'|t }}
+        </p>
+        {% if content %}
+          <div class="alert alert-info">{{ content }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <js-bottom-placeholder token="{{ placeholder_token }}">
+  </body>
+</html>

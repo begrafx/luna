@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * comment.html.twig
+ * Luna Theme — Comment display.
+ */
+#}
+<article{{ attributes.addClass('comment', 'card', 'mb-3', 'luna-comment') }}>
+  <div class="card-body">
+    <div class="d-flex gap-3 align-items-start">
+      {% if user_picture %}
+        <div class="flex-shrink-0">
+          {{ user_picture }}
+        </div>
+      {% endif %}
+      <div class="flex-grow-1">
+        <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">
+          <div>
+            <strong class="me-2">{{ author }}</strong>
+            {% if new_indicator_timestamp %}
+              <span class="badge bg-success ms-1">{{ 'New'|t }}</span>
+            {% endif %}
+          </div>
+          <small class="text-secondary">{{ created }}</small>
+        </div>
+        {{ title_prefix }}
+        {% if label %}
+          <h3{{ title_attributes.addClass('h6', 'mb-2') }}>
+            {{ label }}
+          </h3>
+        {% endif %}
+        {{ title_suffix }}
+        <div class="comment__content">
+          {{ content.comment_body }}
+        </div>
+        {% if content.links %}
+          <div class="mt-2 d-flex gap-2 align-items-center">
+            {{ content.links }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</article>

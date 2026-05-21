@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Default theme implementation for unformatted rows.
+ *
+ * Available variables:
+ * - title: Optional title.
+ * - rows: A list of the view's row items.
+ */
+#}
+
+{% if title %}
+  <h3 class="h4 mb-4">{{ title }}</h3>
+{% endif %}
+
+{% for row in rows %}
+  <div class="views-row">
+    {{ row.content }}
+  </div>
+{% endfor %}

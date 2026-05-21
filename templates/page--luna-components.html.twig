@@ -1,0 +1,985 @@
+{#
+/**
+ * @file
+ * page--luna-components.html.twig
+ * Luna Theme — Full component showcase page.
+ *
+ * Apply this template to a Basic Page node by creating a node with
+ * path alias /luna-components, or name it page--node--[nid].html.twig.
+ *
+ * This template self-contains a complete Halfmoon component gallery.
+ * It does NOT require any special blocks — everything is inline.
+ */
+#}
+
+{# Re-use the outer chrome from page.html.twig by extending it inline #}
+{# For a standalone showcase just drop this inside the content region #}
+
+<div class="container-xl py-5" id="luna-components-demo">
+
+  {# ── Page header ──────────────────────────────────────────── #}
+  <div class="mb-5 pb-4 border-bottom">
+    <span class="badge bg-primary mb-2">Luna + Halfmoon CSS</span>
+    <h1 class="display-5 fw-bold" style="font-family:var(--luna-font-heading,serif);">
+      Component Gallery
+    </h1>
+    <p class="lead text-secondary">
+      Every Halfmoon / Bootstrap component styled for the Luna theme.
+      Toggle dark mode and switch core themes using the navbar controls.
+    </p>
+    {# Core theme switcher #}
+    <div class="btn-group mt-2" role="group" aria-label="{{ 'Switch core theme'|t }}">
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-luna-core="default">Default</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-luna-core="modern">Modern</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-luna-core="elegant">Elegant</button>
+    </div>
+  </div>
+
+  {# ── Scrollspy wrapper ────────────────────────────────────── #}
+  <div class="row g-5">
+
+    {# Left scrollspy nav #}
+    <div class="col-lg-2 d-none d-lg-block">
+      <nav class="luna-scrollspy-nav" id="compNav"
+           data-bs-spy="scroll" data-bs-target="#compNav"
+           aria-label="{{ 'Component sections'|t }}">
+        <nav class="nav flex-column">
+          <a class="nav-link" href="#sec-typography">Typography</a>
+          <a class="nav-link" href="#sec-buttons">Buttons</a>
+          <a class="nav-link" href="#sec-alerts">Alerts</a>
+          <a class="nav-link" href="#sec-badges">Badges</a>
+          <a class="nav-link" href="#sec-cards">Cards</a>
+          <a class="nav-link" href="#sec-accordion">Accordion</a>
+          <a class="nav-link" href="#sec-carousel">Carousel</a>
+          <a class="nav-link" href="#sec-modal">Modal</a>
+          <a class="nav-link" href="#sec-offcanvas">Offcanvas</a>
+          <a class="nav-link" href="#sec-navs">Navs &amp; Tabs</a>
+          <a class="nav-link" href="#sec-progress">Progress</a>
+          <a class="nav-link" href="#sec-spinner">Spinners</a>
+          <a class="nav-link" href="#sec-toast">Toasts</a>
+          <a class="nav-link" href="#sec-tooltip">Tooltips</a>
+          <a class="nav-link" href="#sec-popover">Popovers</a>
+          <a class="nav-link" href="#sec-listgroup">List Group</a>
+          <a class="nav-link" href="#sec-forms">Forms</a>
+          <a class="nav-link" href="#sec-table">Tables</a>
+          <a class="nav-link" href="#sec-pagination">Pagination</a>
+          <a class="nav-link" href="#sec-placeholder">Placeholder</a>
+          <a class="nav-link" href="#sec-collapse">Collapse</a>
+          <a class="nav-link" href="#sec-dropdown">Dropdowns</a>
+          <a class="nav-link" href="#sec-breadcrumb">Breadcrumb</a>
+          <a class="nav-link" href="#sec-sidebar">Sidebar</a>
+          <a class="nav-link" href="#sec-dashboard">Dashboard</a>
+        </nav>
+      </nav>
+    </div>
+
+    {# Main content column #}
+    <div class="col-lg-10" data-bs-spy="scroll" data-bs-target="#compNav" tabindex="0">
+
+      {# ── TYPOGRAPHY ───────────────────────────────────────── #}
+      <section id="sec-typography" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Typography</h2>
+        <h1 style="font-family:var(--luna-font-heading);">Heading 1 — DM Serif Display</h1>
+        <h2 style="font-family:var(--luna-font-heading);">Heading 2</h2>
+        <h3 style="font-family:var(--luna-font-heading);">Heading 3</h3>
+        <h4>Heading 4 — body weight</h4>
+        <p class="lead">Lead paragraph — slightly larger introductory text.</p>
+        <p>Body text. Luna uses <strong>DM Sans</strong> for body copy with <em>italic support</em> and <code>monospaced code</code> via JetBrains Mono. <a href="#">Links</a> use the Luna primary indigo.</p>
+        <p><small class="text-secondary">Small muted text — captions, meta, timestamps.</small></p>
+        <blockquote class="blockquote border-start border-primary ps-3 my-3">
+          <p>"Design is not just what it looks like and feels like. Design is how it works."</p>
+          <footer class="blockquote-footer">Steve Jobs</footer>
+        </blockquote>
+        <pre><code>// Code block — JetBrains Mono
+function greet(name) {
+  return `Hello, ${name}!`;
+}</code></pre>
+      </section>
+
+      {# ── BUTTONS ──────────────────────────────────────────── #}
+      <section id="sec-buttons" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Buttons &amp; Button Groups</h2>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn btn-secondary">Secondary</button>
+          <button class="btn btn-success">Success</button>
+          <button class="btn btn-danger">Danger</button>
+          <button class="btn btn-warning">Warning</button>
+          <button class="btn btn-info">Info</button>
+          <button class="btn btn-light">Light</button>
+          <button class="btn btn-dark">Dark</button>
+          <button class="btn btn-link">Link</button>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <button class="btn btn-outline-primary">Outline Primary</button>
+          <button class="btn btn-outline-secondary">Outline Secondary</button>
+          <button class="btn btn-outline-success">Outline Success</button>
+          <button class="btn btn-outline-danger">Outline Danger</button>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary">Default</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+          <button class="btn btn-gradient">Gradient</button>
+          <button class="btn btn-primary" disabled>Disabled</button>
+        </div>
+        <div class="btn-group mb-3" role="group">
+          <button type="button" class="btn btn-outline-primary">Left</button>
+          <button type="button" class="btn btn-outline-primary">Middle</button>
+          <button type="button" class="btn btn-outline-primary">Right</button>
+        </div>
+      </section>
+
+      {# ── ALERTS ───────────────────────────────────────────── #}
+      <section id="sec-alerts" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Alerts</h2>
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+          <strong>Primary!</strong> This is a primary alert — check it out.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ 'Close'|t }}"></button>
+        </div>
+        <div class="alert alert-success" role="alert">
+          <strong>Success!</strong> Your action was completed successfully.
+        </div>
+        <div class="alert alert-warning" role="alert">
+          <strong>Warning!</strong> Something might need your attention.
+        </div>
+        <div class="alert alert-danger" role="alert">
+          <strong>Error!</strong> Something went wrong. Please try again.
+        </div>
+        <div class="alert alert-info" role="alert">
+          <strong>Info!</strong> Here is some useful information for you.
+        </div>
+      </section>
+
+      {# ── BADGES ───────────────────────────────────────────── #}
+      <section id="sec-badges" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Badges</h2>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <span class="badge bg-primary">Primary</span>
+          <span class="badge bg-secondary">Secondary</span>
+          <span class="badge bg-success">Success</span>
+          <span class="badge bg-danger">Danger</span>
+          <span class="badge bg-warning text-dark">Warning</span>
+          <span class="badge bg-info text-dark">Info</span>
+          <span class="badge bg-light text-dark">Light</span>
+          <span class="badge bg-dark">Dark</span>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="badge rounded-pill bg-primary">Pill Primary</span>
+          <span class="badge rounded-pill bg-secondary">Pill Secondary</span>
+          <span class="badge rounded-pill bg-success">Pill Success</span>
+          <span class="luna-badge badge bg-primary">Luna Badge</span>
+        </div>
+      </section>
+
+      {# ── CARDS ────────────────────────────────────────────── #}
+      <section id="sec-cards" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Cards</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card luna-card h-100">
+              <div class="card-header">Standard Card</div>
+              <div class="card-body">
+                <h5 class="card-title">Card Title</h5>
+                <p class="card-text text-secondary">Quick example text for the card body content.</p>
+                <a href="#" class="btn btn-primary btn-sm">Go somewhere</a>
+              </div>
+              <div class="card-footer text-secondary small">Card footer</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="luna-stat-card h-100">
+              <div class="luna-stat-value">2,847</div>
+              <div class="luna-stat-label">Monthly Visitors</div>
+              <div class="mt-2"><span class="badge bg-success">↑ 12%</span></div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="luna-feature-card h-100">
+              <div class="luna-feature-icon">🌙</div>
+              <h5 class="fw-bold mb-2">Dark Mode</h5>
+              <p class="text-secondary small">Built-in dark mode support across all components via CSS variables.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {# ── ACCORDION ────────────────────────────────────────── #}
+      <section id="sec-accordion" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Accordion</h2>
+        <div class="accordion luna-accordion" id="lunaAccordion">
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#acc1"
+                      aria-expanded="true" aria-controls="acc1">
+                What is Halfmoon CSS?
+              </button>
+            </h3>
+            <div id="acc1" class="accordion-collapse collapse show"
+                 data-bs-parent="#lunaAccordion">
+              <div class="accordion-body">
+                Halfmoon is a highly customizable, drop-in Bootstrap 5 replacement with CSS-variable theming, three built-in core themes, and dark mode support for all components.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#acc2"
+                      aria-expanded="false" aria-controls="acc2">
+                What makes Luna different?
+              </button>
+            </h3>
+            <div id="acc2" class="accordion-collapse collapse"
+                 data-bs-parent="#lunaAccordion">
+              <div class="accordion-body">
+                Luna extends Halfmoon with a rich hero section, Drupal 11 preprocess hooks, full Twig template coverage, configurable theme settings, and smooth Drupal Behaviors for dark mode and component initialisation.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#acc3"
+                      aria-expanded="false" aria-controls="acc3">
+                How do I switch themes at runtime?
+              </button>
+            </h3>
+            <div id="acc3" class="accordion-collapse collapse"
+                 data-bs-parent="#lunaAccordion">
+              <div class="accordion-body">
+                Use <code>data-luna-core="modern"</code> on any button. The JS behaviour picks it up, applies the <code>data-bs-core</code> attribute to <code>&lt;html&gt;</code>, and persists the choice in localStorage.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {# ── CAROUSEL ─────────────────────────────────────────── #}
+      <section id="sec-carousel" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Carousel</h2>
+        <div id="lunaCarousel" class="carousel slide luna-carousel rounded-3 overflow-hidden"
+             data-bs-ride="carousel" data-luna-autoplay>
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#lunaCarousel" data-bs-slide-to="0"
+                    class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#lunaCarousel" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#lunaCarousel" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div style="height:240px;background:linear-gradient(135deg,#6366f1,#a78bfa);display:flex;align-items:center;justify-content:center;">
+                <span style="color:#fff;font-size:3rem;">🌙</span>
+              </div>
+              <div class="carousel-caption">
+                <h5>Slide One</h5><p>Halfmoon CSS + Drupal 11</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div style="height:240px;background:linear-gradient(135deg,#0f0c29,#4338ca);display:flex;align-items:center;justify-content:center;">
+                <span style="color:#fff;font-size:3rem;">✦</span>
+              </div>
+              <div class="carousel-caption">
+                <h5>Slide Two</h5><p>Three built-in core themes</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div style="height:240px;background:linear-gradient(135deg,#1e1b4b,#22d3ee);display:flex;align-items:center;justify-content:center;">
+                <span style="color:#fff;font-size:3rem;">🎨</span>
+              </div>
+              <div class="carousel-caption">
+                <h5>Slide Three</h5><p>Dark mode built right in</p>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button"
+                  data-bs-target="#lunaCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button"
+                  data-bs-target="#lunaCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </section>
+
+      {# ── MODAL ────────────────────────────────────────────── #}
+      <section id="sec-modal" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Modal</h2>
+        <button type="button" class="btn btn-primary me-2"
+                data-bs-toggle="modal" data-bs-target="#lunaModal">
+          Launch Modal
+        </button>
+        <button type="button" class="btn btn-outline-secondary"
+                data-bs-toggle="modal" data-bs-target="#lunaModalLg">
+          Large Modal
+        </button>
+        {# Standard modal #}
+        <div class="modal fade" id="lunaModal" tabindex="-1"
+             aria-labelledby="lunaModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="lunaModalLabel">Luna Modal</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="{{ 'Close'|t }}"></button>
+              </div>
+              <div class="modal-body">
+                <p>This is a standard Halfmoon modal, styled with Luna's rounded corners and shadow system.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {# Large modal #}
+        <div class="modal fade" id="lunaModalLg" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Large Modal</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="{{ 'Close'|t }}"></button>
+              </div>
+              <div class="modal-body">
+                <p>Large modals give more room for content like forms, tables, or media.</p>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {# ── OFFCANVAS ────────────────────────────────────────── #}
+      <section id="sec-offcanvas" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Offcanvas</h2>
+        <button class="btn btn-outline-primary me-2" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#demoOffcanvas">
+          Open Offcanvas (start)
+        </button>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="demoOffcanvas">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Luna Offcanvas</h5>
+            <button type="button" class="btn-close"
+                    data-bs-dismiss="offcanvas" aria-label="{{ 'Close'|t }}"></button>
+          </div>
+          <div class="offcanvas-body">
+            <p>The offcanvas component slides in from any edge. Luna uses it for the mobile navigation menu.</p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><a href="#" class="text-decoration-none">Home</a></li>
+              <li class="list-group-item"><a href="#" class="text-decoration-none">About</a></li>
+              <li class="list-group-item"><a href="#" class="text-decoration-none">Services</a></li>
+              <li class="list-group-item"><a href="#" class="text-decoration-none">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {# ── NAVS & TABS ──────────────────────────────────────── #}
+      <section id="sec-navs" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Navs &amp; Tabs</h2>
+        <ul class="nav nav-tabs mb-4" role="tablist">
+          <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="tab"
+                    data-bs-target="#tab1" role="tab">Overview</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab"
+                    data-bs-target="#tab2" role="tab">Features</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab"
+                    data-bs-target="#tab3" role="tab">Installation</button>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+            <p>Luna is built on Halfmoon CSS, a drop-in Bootstrap replacement with CSS-variable theming and dark mode.</p>
+          </div>
+          <div class="tab-pane fade" id="tab2" role="tabpanel">
+            <p>25+ components, 3 core themes, hero section, dark/light toggle, and full Drupal 11 template coverage.</p>
+          </div>
+          <div class="tab-pane fade" id="tab3" role="tabpanel">
+            <p>Copy to <code>web/themes/custom/luna</code>, run <code>drush theme:enable luna</code>, and set as default.</p>
+          </div>
+        </div>
+        <ul class="nav nav-pills mt-4 gap-1">
+          <li class="nav-item"><a class="nav-link active" href="#">Active</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Another</a></li>
+          <li class="nav-item"><a class="nav-link disabled">Disabled</a></li>
+        </ul>
+      </section>
+
+      {# ── PROGRESS ─────────────────────────────────────────── #}
+      <section id="sec-progress" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Progress</h2>
+        <div class="luna-progress-labeled">
+          <div class="luna-progress-header"><span>Performance</span><span>92%</span></div>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar"
+                 data-value="92" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="luna-progress-labeled">
+          <div class="luna-progress-header"><span>Accessibility</span><span>98%</span></div>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar"
+                 data-value="98" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="luna-progress-labeled">
+          <div class="luna-progress-header"><span>SEO</span><span>87%</span></div>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar"
+                 data-value="87" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        {# Stacked progress #}
+        <div class="progress mt-3" style="height:1rem;">
+          <div class="progress-bar bg-primary" style="width:40%">40%</div>
+          <div class="progress-bar bg-success" style="width:30%">30%</div>
+          <div class="progress-bar bg-warning" style="width:20%">20%</div>
+        </div>
+      </section>
+
+      {# ── SPINNERS ─────────────────────────────────────────── #}
+      <section id="sec-spinner" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Spinners</h2>
+        <div class="d-flex gap-4 align-items-center flex-wrap">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <button class="btn btn-primary" type="button" disabled>
+            <span class="spinner-border spinner-border-sm me-2"></span>Loading...
+          </button>
+        </div>
+      </section>
+
+      {# ── TOASTS ───────────────────────────────────────────── #}
+      <section id="sec-toast" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Toasts</h2>
+        <button type="button" class="btn btn-outline-primary"
+                id="lunaShowToast">Show Toast</button>
+        <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:1090;">
+          <div id="lunaToastDemo" class="toast" role="alert" aria-live="assertive"
+               aria-atomic="true">
+            <div class="toast-header">
+              <span class="rounded me-2"
+                    style="width:16px;height:16px;background:var(--luna-primary);display:inline-block;"></span>
+              <strong class="me-auto">Luna</strong>
+              <small class="text-secondary">just now</small>
+              <button type="button" class="btn-close"
+                      data-bs-dismiss="toast" aria-label="{{ 'Close'|t }}"></button>
+            </div>
+            <div class="toast-body">
+              This is a Luna toast notification. 🌙
+            </div>
+          </div>
+        </div>
+        <script>
+          document.getElementById('lunaShowToast').addEventListener('click', function () {
+            if (typeof bootstrap !== 'undefined') {
+              var toastEl = document.getElementById('lunaToastDemo');
+              bootstrap.Toast.getOrCreateInstance(toastEl).show();
+            }
+          });
+        </script>
+      </section>
+
+      {# ── TOOLTIPS ─────────────────────────────────────────── #}
+      <section id="sec-tooltip" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Tooltips</h2>
+        <div class="d-flex flex-wrap gap-3">
+          <button type="button" class="btn btn-secondary"
+                  data-bs-toggle="tooltip" data-bs-placement="top"
+                  title="Tooltip on top">Top</button>
+          <button type="button" class="btn btn-secondary"
+                  data-bs-toggle="tooltip" data-bs-placement="right"
+                  title="Tooltip on right">Right</button>
+          <button type="button" class="btn btn-secondary"
+                  data-bs-toggle="tooltip" data-bs-placement="bottom"
+                  title="Tooltip on bottom">Bottom</button>
+          <button type="button" class="btn btn-secondary"
+                  data-bs-toggle="tooltip" data-bs-placement="left"
+                  title="Tooltip on left">Left</button>
+          <button type="button" class="btn btn-outline-primary"
+                  data-bs-toggle="tooltip"
+                  title="Luna tooltip with HTML <em>support</em>"
+                  data-bs-html="true">HTML Tooltip</button>
+        </div>
+      </section>
+
+      {# ── POPOVERS ─────────────────────────────────────────── #}
+      <section id="sec-popover" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Popovers</h2>
+        <div class="d-flex flex-wrap gap-3">
+          <button type="button" class="btn btn-primary"
+                  data-bs-toggle="popover" data-bs-placement="top"
+                  data-bs-title="Popover Title"
+                  data-bs-content="Popovers are supercharged tooltips with a title and body content.">
+            Click me (top)
+          </button>
+          <button type="button" class="btn btn-outline-primary"
+                  data-bs-toggle="popover" data-bs-placement="right"
+                  data-bs-title="Luna Popover"
+                  data-bs-content="Styled with Luna's border-radius and shadow system.">
+            Click me (right)
+          </button>
+        </div>
+      </section>
+
+      {# ── LIST GROUP ───────────────────────────────────────── #}
+      <section id="sec-listgroup" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">List Group</h2>
+        <div class="row g-4">
+          <div class="col-md-6">
+            <ul class="list-group">
+              <li class="list-group-item active">Active item</li>
+              <li class="list-group-item">Second item</li>
+              <li class="list-group-item">Third item</li>
+              <li class="list-group-item disabled">Disabled item</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Inbox <span class="badge bg-primary rounded-pill">14</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Notifications <span class="badge bg-danger rounded-pill">3</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Messages <span class="badge bg-success rounded-pill">7</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {# ── FORMS ────────────────────────────────────────────── #}
+      <section id="sec-forms" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Forms</h2>
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label" for="demoText">Text Input</label>
+              <input type="text" class="form-control" id="demoText"
+                     placeholder="Enter text…">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="demoSelect">Select</label>
+              <select class="form-select" id="demoSelect">
+                <option>Default theme</option>
+                <option>Modern theme</option>
+                <option>Elegant theme</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="demoTextarea">Textarea</label>
+              <textarea class="form-control" id="demoTextarea" rows="3"
+                        placeholder="Write something…"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Range</label>
+              <input type="range" class="form-range" min="0" max="100" value="50">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Checkboxes</label>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="chk1" checked>
+                <label class="form-check-label" for="chk1">Default checkbox (checked)</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="chk2">
+                <label class="form-check-label" for="chk2">Default checkbox</label>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Radio buttons</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="radDemo"
+                       id="rad1" checked>
+                <label class="form-check-label" for="rad1">Option one</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="radDemo" id="rad2">
+                <label class="form-check-label" for="rad2">Option two</label>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Switches</label>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch"
+                       id="sw1" checked>
+                <label class="form-check-label" for="sw1">Toggle on</label>
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="sw2">
+                <label class="form-check-label" for="sw2">Toggle off</label>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">@</span>
+              <input type="text" class="form-control" placeholder="Username">
+            </div>
+            <div class="input-group">
+              <input type="email" class="form-control" placeholder="Email address">
+              <button class="btn btn-primary" type="button">Subscribe</button>
+            </div>
+          </div>
+        </div>
+        {# Floating labels #}
+        <div class="row g-3 mt-2">
+          <div class="col-md-4">
+            <div class="form-floating">
+              <input type="email" class="form-control" id="floatEmail"
+                     placeholder="name@example.com">
+              <label for="floatEmail">Email address</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-floating">
+              <input type="password" class="form-control" id="floatPass"
+                     placeholder="Password">
+              <label for="floatPass">Password</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-floating">
+              <select class="form-select" id="floatSelect">
+                <option>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+              </select>
+              <label for="floatSelect">Works with selects</label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {# ── TABLE ────────────────────────────────────────────── #}
+      <section id="sec-table" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Tables</h2>
+        <div class="table-responsive">
+          <table class="table table-luna table-hover">
+            <thead>
+              <tr>
+                <th>Name</th><th>Role</th><th>Status</th><th>Joined</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Alice Moon</td><td>Administrator</td>
+                <td><span class="badge bg-success">Active</span></td><td>2024-01-15</td>
+              </tr>
+              <tr>
+                <td>Bob Star</td><td>Editor</td>
+                <td><span class="badge bg-warning text-dark">Pending</span></td><td>2024-03-02</td>
+              </tr>
+              <tr>
+                <td>Carol Nova</td><td>Author</td>
+                <td><span class="badge bg-secondary">Inactive</span></td><td>2023-11-20</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {# ── PAGINATION ───────────────────────────────────────── #}
+      <section id="sec-pagination" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Pagination</h2>
+        <nav aria-label="Demo pagination">
+          <ul class="pagination">
+            <li class="page-item disabled">
+              <span class="page-link">&laquo;</span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active">
+              <span class="page-link">2</span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">&raquo;</a>
+            </li>
+          </ul>
+        </nav>
+        <nav aria-label="Pagination sizes">
+          <ul class="pagination pagination-sm">
+            <li class="page-item active"><span class="page-link">1</span></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      {# ── PLACEHOLDER / SKELETON ───────────────────────────── #}
+      <section id="sec-placeholder" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Placeholder / Skeleton</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="luna-skeleton-card card">
+              <div class="card-body">
+                <h5 class="card-title placeholder-glow">
+                  <span class="placeholder col-8"></span>
+                </h5>
+                <p class="card-text placeholder-glow">
+                  <span class="placeholder col-12 mb-1"></span>
+                  <span class="placeholder col-10 mb-1"></span>
+                  <span class="placeholder col-7"></span>
+                </p>
+                <a href="#" tabindex="-1"
+                   class="btn btn-primary disabled placeholder col-5"></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="luna-skeleton-card card">
+              <div class="card-body placeholder-wave">
+                <h5 class="card-title">
+                  <span class="placeholder col-7"></span>
+                </h5>
+                <p class="card-text">
+                  <span class="placeholder col-12 mb-1"></span>
+                  <span class="placeholder col-9"></span>
+                </p>
+                <a href="#" tabindex="-1"
+                   class="btn btn-outline-primary disabled placeholder col-4"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {# ── COLLAPSE ─────────────────────────────────────────── #}
+      <section id="sec-collapse" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Collapse</h2>
+        <div class="d-flex gap-2 mb-3">
+          <a class="btn btn-outline-primary" data-bs-toggle="collapse"
+             href="#collapseDemo" role="button" aria-expanded="false">
+            Toggle collapse
+          </a>
+          <button class="btn btn-outline-secondary" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#collapseDemo">
+            Also toggle
+          </button>
+        </div>
+        <div class="collapse" id="collapseDemo">
+          <div class="card card-body">
+            This content was collapsed and is now revealed. The collapse component works with any element via Bootstrap's <code>data-bs-toggle="collapse"</code>.
+          </div>
+        </div>
+      </section>
+
+      {# ── DROPDOWNS ────────────────────────────────────────── #}
+      <section id="sec-dropdown" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Dropdowns</h2>
+        <div class="d-flex flex-wrap gap-3">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+              Primary Dropdown
+            </button>
+            <ul class="dropdown-menu">
+              <li><h6 class="dropdown-header">Actions</h6></li>
+              <li><a class="dropdown-item" href="#">Edit</a></li>
+              <li><a class="dropdown-item" href="#">Duplicate</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+            </ul>
+          </div>
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown">
+              Outline Dropdown
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item active" href="#">Active item</a></li>
+              <li><a class="dropdown-item" href="#">Normal item</a></li>
+              <li><a class="dropdown-item disabled">Disabled item</a></li>
+            </ul>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary">Split Button</button>
+            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {# ── BREADCRUMB ───────────────────────────────────────── #}
+      <section id="sec-breadcrumb" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Breadcrumb</h2>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Components</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Breadcrumb</li>
+          </ol>
+        </nav>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Library</li>
+          </ol>
+        </nav>
+      </section>
+
+      {# ── SIDEBAR NAV ──────────────────────────────────────── #}
+      <section id="sec-sidebar" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Sidebar (Halfmoon dedicated component)</h2>
+        <div style="max-width:260px;">
+          <div class="luna-sidebar-nav">
+            <div class="sidebar-heading">Navigation</div>
+            <nav class="nav flex-column">
+              <a class="nav-link active" href="#">
+                <span class="nav-icon">🏠</span> Dashboard
+              </a>
+              <a class="nav-link" href="#">
+                <span class="nav-icon">📄</span> Content
+              </a>
+              <a class="nav-link" href="#">
+                <span class="nav-icon">🎨</span> Appearance
+              </a>
+              <a class="nav-link" href="#">
+                <span class="nav-icon">🔌</span> Modules
+              </a>
+            </nav>
+            <div class="sidebar-heading">Account</div>
+            <nav class="nav flex-column">
+              <a class="nav-link" href="#">
+                <span class="nav-icon">👤</span> Profile
+              </a>
+              <a class="nav-link" href="#">
+                <span class="nav-icon">⚙️</span> Settings
+              </a>
+            </nav>
+          </div>
+        </div>
+      </section>
+
+      {# ── DASHBOARD LAYOUT PREVIEW ─────────────────────────── #}
+      <section id="sec-dashboard" class="luna-section--sm mb-5">
+        <h2 class="h4 fw-bold border-bottom pb-2 mb-4">Dashboard Layout Preview</h2>
+        <div class="luna-stats-grid">
+          <div class="luna-stat-card">
+            <div class="luna-stat-value">1,284</div>
+            <div class="luna-stat-label">Page Views</div>
+          </div>
+          <div class="luna-stat-card" style="border-top-color:#10b981;">
+            <div class="luna-stat-value" style="color:#10b981;">98%</div>
+            <div class="luna-stat-label">Uptime</div>
+          </div>
+          <div class="luna-stat-card" style="border-top-color:#f59e0b;">
+            <div class="luna-stat-value" style="color:#f59e0b;">47</div>
+            <div class="luna-stat-label">New Users</div>
+          </div>
+          <div class="luna-stat-card" style="border-top-color:#22d3ee;">
+            <div class="luna-stat-value" style="color:#22d3ee;">3.2s</div>
+            <div class="luna-stat-label">Avg. Load</div>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-8">
+            <div class="card luna-card">
+              <div class="card-header d-flex align-items-center justify-content-between">
+                <span>Recent Activity</span>
+                <span class="badge bg-primary rounded-pill">Live</span>
+              </div>
+              <div class="card-body p-0">
+                <ul class="luna-activity-feed p-3">
+                  <li class="luna-activity-item">
+                    <div class="luna-activity-avatar">AL</div>
+                    <div>
+                      <div class="luna-activity-text"><strong>Alice</strong> published a new article.</div>
+                      <div class="luna-activity-time">2 minutes ago</div>
+                    </div>
+                  </li>
+                  <li class="luna-activity-item">
+                    <div class="luna-activity-avatar" style="background:linear-gradient(135deg,#10b981,#22d3ee);">BS</div>
+                    <div>
+                      <div class="luna-activity-text"><strong>Bob</strong> updated the homepage.</div>
+                      <div class="luna-activity-time">15 minutes ago</div>
+                    </div>
+                  </li>
+                  <li class="luna-activity-item">
+                    <div class="luna-activity-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">CN</div>
+                    <div>
+                      <div class="luna-activity-text"><strong>Carol</strong> left a comment.</div>
+                      <div class="luna-activity-time">1 hour ago</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card luna-card h-100">
+              <div class="card-header">Completion</div>
+              <div class="card-body">
+                <div class="luna-progress-labeled">
+                  <div class="luna-progress-header"><span>Design</span><span>100%</span></div>
+                  <div class="progress mb-3">
+                    <div class="progress-bar" data-value="100" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <div class="luna-progress-labeled">
+                  <div class="luna-progress-header"><span>Development</span><span>82%</span></div>
+                  <div class="progress mb-3">
+                    <div class="progress-bar" data-value="82" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <div class="luna-progress-labeled">
+                  <div class="luna-progress-header"><span>Testing</span><span>55%</span></div>
+                  <div class="progress">
+                    <div class="progress-bar" data-value="55" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>{# /col-lg-10 #}
+  </div>{# /row #}
+</div>{# /container-xl #}

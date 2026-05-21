@@ -1,0 +1,22 @@
+luna.settings:
+  type: theme_settings
+  label: 'Luna theme settings'
+  mapping:
+    halfmoon_core:
+      type: string
+      label: 'Halfmoon core theme'
+    color_mode:
+      type: string
+      label: 'Default color mode'
+    dark_mode_toggle:
+      type: boolean
+      label: 'Show dark mode toggle'
+    layout:
+      type: string
+      label: 'Layout width'
+    sidebar_position:
+      type: string
+      label: 'Sidebar position'
+    footer_text:
+      type: string
+      label: 'Footer copyright text'

@@ -1,0 +1,310 @@
+/**
+ * Luna Theme v0.1.7
+ */
+/**
+ * luna-hero.css
+ * Luna Theme — Hero Section Styles
+ * Supports gradient, dark, light, and image hero variants.
+ */
+
+/* ============================================================
+   HERO BASE
+   ============================================================ */
+
+.luna-hero {
+  min-height: var(--luna-hero-min-height);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.luna-hero__content {
+  position: relative;
+  z-index: 2;
+  padding: 5rem 0;
+}
+
+.luna-hero__eyebrow {
+  display: inline-block;
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  padding: .3rem .9rem;
+  border-radius: 50px;
+  margin-bottom: 1.25rem;
+  background: rgba(255,255,255,.15);
+  color: rgba(255,255,255,.9);
+  border: 1px solid rgba(255,255,255,.2);
+  backdrop-filter: blur(4px);
+}
+
+.luna-hero__title {
+  font-family: var(--luna-font-heading);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--luna-hero-text);
+  margin-bottom: 1.25rem;
+}
+
+.luna-hero__title em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--luna-accent), var(--luna-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.luna-hero__subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.7;
+  color: var(--luna-hero-subtext);
+  max-width: 560px;
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+}
+
+.luna-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.luna-hero__actions .btn {
+  font-size: 1rem;
+  padding: .7rem 2rem;
+}
+
+.luna-hero__badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  align-items: center;
+}
+
+.luna-hero__badge-item {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .85rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.75);
+}
+
+.luna-hero__badge-item .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--luna-accent);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ============================================================
+   HERO VISUAL SIDE
+   ============================================================ */
+
+.luna-hero__visual {
+  position: relative;
+}
+
+.luna-hero__mockup {
+  border-radius: var(--luna-border-radius-xl);
+  box-shadow: 0 30px 60px -12px rgba(0,0,0,.4);
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(12px);
+  padding: 1.5rem;
+  animation: luna-hero-float 6s ease-in-out infinite;
+}
+
+@keyframes luna-hero-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+
+/* ============================================================
+   HERO VARIANT: GRADIENT
+   ============================================================ */
+
+.luna-hero--gradient {
+  background: var(--luna-hero-gradient);
+}
+
+/* Decorative orbs */
+.luna-hero--gradient::before,
+.luna-hero--gradient::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: .4;
+  pointer-events: none;
+}
+
+.luna-hero--gradient::before {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #818cf8 0%, transparent 70%);
+  top: -200px;
+  right: -100px;
+}
+
+.luna-hero--gradient::after {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, #22d3ee 0%, transparent 70%);
+  bottom: -150px;
+  left: 100px;
+}
+
+/* ============================================================
+   HERO VARIANT: DARK
+   ============================================================ */
+
+.luna-hero--dark {
+  background: #0f0c29;
+  background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 100%);
+}
+
+.luna-hero--dark .luna-hero__eyebrow {
+  background: rgba(99,102,241,.25);
+  border-color: rgba(99,102,241,.4);
+  color: var(--luna-secondary);
+}
+
+/* ============================================================
+   HERO VARIANT: LIGHT
+   ============================================================ */
+
+.luna-hero--light {
+  background: linear-gradient(135deg, #f8faff 0%, #eef2ff 50%, #f0f9ff 100%);
+}
+
+.luna-hero--light .luna-hero__eyebrow {
+  background: rgba(99,102,241,.08);
+  border-color: rgba(99,102,241,.2);
+  color: var(--luna-primary);
+}
+
+.luna-hero--light .luna-hero__title {
+  color: #1e1b4b;
+}
+
+.luna-hero--light .luna-hero__subtitle {
+  color: #4a5568;
+}
+
+.luna-hero--light .luna-hero__badge-item {
+  color: #6b7280;
+}
+
+/* ============================================================
+   HERO VARIANT: IMAGE
+   ============================================================ */
+
+.luna-hero--image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.luna-hero--image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgba(30, 27, 75, .85) 0%,
+    rgba(99, 102, 241, .6) 100%);
+  z-index: 1;
+}
+
+/* ============================================================
+   HERO GRID PATTERN (decorative)
+   ============================================================ */
+
+.luna-hero__grid-pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: .06;
+  background-image:
+    linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ============================================================
+   HERO SCROLL INDICATOR
+   ============================================================ */
+
+.luna-hero__scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
+  z-index: 2;
+  animation: luna-bounce .75s ease infinite alternate;
+  color: rgba(255,255,255,.5);
+  font-size: .75rem;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+@keyframes luna-bounce {
+  from { transform: translateX(-50%) translateY(0); }
+  to   { transform: translateX(-50%) translateY(6px); }
+}
+
+.luna-hero__scroll-arrow {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+/* ============================================================
+   RESPONSIVE HERO
+   ============================================================ */
+
+@media (max-width: 991.98px) {
+  .luna-hero__visual {
+    margin-top: 3rem;
+  }
+
+  .luna-hero__content {
+    text-align: center;
+    padding: 3rem 0;
+  }
+
+  .luna-hero__subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .luna-hero__actions {
+    justify-content: center;
+  }
+
+  .luna-hero__badge-row {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .luna-hero__actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+}

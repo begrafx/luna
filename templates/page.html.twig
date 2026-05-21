@@ -1,0 +1,274 @@
+{#
+/**
+ * @file
+ * page.html.twig
+ * Luna Theme — Full page layout using Halfmoon CSS.
+ *
+ * Regions used:
+ *   header, hero, primary_menu, secondary_menu, page_top, page_bottom,
+ *   breadcrumb, highlighted, content_top, content, content_bottom,
+ *   sidebar_first, sidebar_second, footer_first, footer_second,
+ *   footer_third, offcanvas
+ */
+#}
+
+{# ── Offcanvas mobile navigation ──────────────────────────── #}
+{% if page.primary_menu or page.secondary_menu %}
+<div class="offcanvas offcanvas-start" tabindex="-1" id="lunaMobileMenu"
+     aria-labelledby="lunaMobileMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="lunaMobileMenuLabel">
+      <span class="luna-logo-icon d-inline-block me-2" style="width:28px;height:28px;background:var(--luna-primary);border-radius:50%;vertical-align:middle;"></span>
+      {{ site_name }}
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+            aria-label="{{ 'Close'|t }}"></button>
+  </div>
+  <div class="offcanvas-body">
+    {% if page.primary_menu %}
+      {{ page.primary_menu }}
+    {% endif %}
+    {% if page.secondary_menu %}
+      <hr>
+      {{ page.secondary_menu }}
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+{# ── Sticky Navbar ─────────────────────────────────────────── #}
+<header role="banner">
+  <nav class="navbar navbar-expand-lg luna-navbar" aria-label="{{ 'Site navigation'|t }}">
+    <div class="{% if layout == 'fluid' %}container-fluid{% elseif layout == 'normal' %}container-lg{% elseif layout == 'narrow' %}container-md{% else %}container-xl{% endif %}">
+
+      {# Brand / Logo #}
+      <a class="navbar-brand d-flex align-items-center" href="{{ path('<front>') }}" rel="home">
+        {% if logo %}
+          <img src="{{ logo }}" alt="{{ site_name|e }}" height="36" class="me-2">
+        {% else %}
+          <span class="luna-logo-icon"></span>
+        {% endif %}
+        <span>{{ site_name }}</span>
+      </a>
+
+      {# Desktop navigation — flex-grow pushes right-side controls to the end #}
+      {% if page.primary_menu %}
+        <div class="d-none d-lg-flex align-items-center flex-grow-1 ms-4 luna-primary-nav">
+          {{ page.primary_menu }}
+        </div>
+      {% endif %}
+
+      {# Right-side controls #}
+      <div class="d-flex align-items-center gap-2 ms-auto">
+        {% if page.secondary_menu %}
+          <div class="d-none d-lg-block">
+            {{ page.secondary_menu }}
+          </div>
+        {% endif %}
+
+        {# Dark mode toggle #}
+        <button class="luna-dark-toggle" id="lunaDarkToggle"
+                aria-label="{{ 'Toggle dark mode'|t }}"
+                title="{{ 'Toggle dark/light mode'|t }}">
+          <span class="luna-toggle-icon" aria-hidden="true">☀️</span>
+          <span class="visually-hidden">{{ 'Toggle theme'|t }}</span>
+        </button>
+
+        {# Mobile hamburger #}
+        <button class="btn btn-sm btn-outline-secondary d-lg-none" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#lunaMobileMenu"
+                aria-controls="lunaMobileMenu" aria-label="{{ 'Open menu'|t }}">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+    </div>
+  </nav>
+
+  {# Header region (for custom blocks like search, etc.) #}
+  {% if page.header %}
+    <div class="luna-header-region border-bottom">
+      <div class="{% if layout == 'fluid' %}container-fluid{% else %}container-xl{% endif %} py-2">
+        {{ page.header }}
+      </div>
+    </div>
+  {% endif %}
+</header>
+
+{# ── Hero Section ──────────────────────────────────────────── #}
+{% if page.hero %}
+  {{ page.hero }}
+{% endif %}
+
+{# ── Breadcrumb ────────────────────────────────────────────── #}
+{% if page.breadcrumb %}
+  <div class="luna-breadcrumb">
+    <div class="{% if layout == 'fluid' %}container-fluid{% else %}container-xl{% endif %}">
+      {{ page.breadcrumb }}
+    </div>
+  </div>
+{% endif %}
+
+{# ── Messages / Highlighted ────────────────────────────────── #}
+{% if page.highlighted %}
+  <div class="luna-messages">
+    <div class="{% if layout == 'fluid' %}container-fluid{% else %}container-xl{% endif %} py-3">
+      {{ page.highlighted }}
+    </div>
+  </div>
+{% endif %}
+
+{# ── Main Content ──────────────────────────────────────────── #}
+<main id="main-content" role="main" class="luna-main">
+  <div class="{% if layout == 'fluid' %}container-fluid{% elseif layout == 'normal' %}container-lg{% elseif layout == 'narrow' %}container-md{% else %}container-xl{% endif %} luna-page">
+
+    {# Content top region #}
+    {% if page.content_top %}
+      <div class="luna-content-top mb-4">
+        {{ page.content_top }}
+      </div>
+    {% endif %}
+
+    {# Main layout — four possible cases:
+       both sidebars | left only | right only | full width #}
+    {% if has_sidebar_first and has_sidebar_second %}
+
+      {# Both sidebars: left | content | right (3-column) #}
+      <div class="luna-layout-three-col">
+        <aside class="luna-sidebar-first" role="complementary">
+          {{ page.sidebar_first }}
+        </aside>
+        <div class="luna-content-area">
+          {{ page.content }}
+          {% if page.content_bottom %}
+            <div class="luna-content-bottom mt-4">{{ page.content_bottom }}</div>
+          {% endif %}
+        </div>
+        <aside class="luna-sidebar-second" role="complementary">
+          {{ page.sidebar_second }}
+        </aside>
+      </div>
+
+    {% elseif has_sidebar_first %}
+
+      {# Left sidebar only: sidebar | content #}
+      <div class="luna-layout-sidebar sidebar-left">
+        <aside class="luna-sidebar-area luna-sidebar-first" role="complementary">
+          {{ page.sidebar_first }}
+        </aside>
+        <div class="luna-content-area">
+          {{ page.content }}
+          {% if page.content_bottom %}
+            <div class="luna-content-bottom mt-4">{{ page.content_bottom }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+    {% elseif has_sidebar_second %}
+
+      {# Right sidebar only: content | sidebar #}
+      <div class="luna-layout-sidebar sidebar-right">
+        <div class="luna-content-area">
+          {{ page.content }}
+          {% if page.content_bottom %}
+            <div class="luna-content-bottom mt-4">{{ page.content_bottom }}</div>
+          {% endif %}
+        </div>
+        <aside class="luna-sidebar-area luna-sidebar-second" role="complementary">
+          {{ page.sidebar_second }}
+        </aside>
+      </div>
+
+    {% else %}
+
+      {# Full-width: no sidebars #}
+      {{ page.content }}
+      {% if page.content_bottom %}
+        <div class="luna-content-bottom mt-4">{{ page.content_bottom }}</div>
+      {% endif %}
+
+    {% endif %}
+
+  </div>{# /container #}
+</main>
+
+{# ── Footer ────────────────────────────────────────────────── #}
+<footer class="luna-footer" role="contentinfo">
+  <div class="{% if layout == 'fluid' %}container-fluid{% else %}container-xl{% endif %}">
+
+    {% if page.footer_first or page.footer_second or page.footer_third %}
+      <div class="row g-4 mb-4">
+        {% if page.footer_first %}
+          <div class="col-lg-4">
+            {{ page.footer_first }}
+          </div>
+        {% endif %}
+        {% if page.footer_second %}
+          <div class="col-lg-4">
+            {{ page.footer_second }}
+          </div>
+        {% endif %}
+        {% if page.footer_third %}
+          <div class="col-lg-4">
+            {{ page.footer_third }}
+          </div>
+        {% endif %}
+      </div>
+    {% else %}
+      {# Default footer columns when no blocks are placed #}
+      <div class="row g-4 mb-4">
+        <div class="col-lg-4">
+          <a class="luna-footer-logo" href="{{ path('<front>') }}" rel="home">
+            {{ site_name }}
+          </a>
+          <p class="text-secondary small">
+            {{ site_slogan ?: 'A powerful Drupal 11 site built with the Luna theme and Halfmoon CSS.' }}
+          </p>
+          <div class="d-flex gap-2 mt-3">
+            <a href="#" class="btn btn-sm btn-outline-secondary btn-icon" aria-label="Twitter">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/></svg>
+            </a>
+            <a href="#" class="btn btn-sm btn-outline-secondary btn-icon" aria-label="GitHub">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2 offset-lg-1">
+          <h6 class="fw-bold mb-3">{{ 'Site'|t }}</h6>
+          <ul class="luna-footer-links">
+            <li><a href="{{ path('<front>') }}">{{ 'Home'|t }}</a></li>
+            <li><a href="#">{{ 'About'|t }}</a></li>
+            <li><a href="#">{{ 'Contact'|t }}</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6 class="fw-bold mb-3">{{ 'Themes'|t }}</h6>
+          <ul class="luna-footer-links">
+            <li><a href="#">{{ 'Default'|t }}</a></li>
+            <li><a href="#">{{ 'Modern'|t }}</a></li>
+            <li><a href="#">{{ 'Elegant'|t }}</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3">
+          <h6 class="fw-bold mb-3">{{ 'Stay updated'|t }}</h6>
+          <p class="small text-secondary mb-2">{{ 'Get the latest news and updates.'|t }}</p>
+          <div class="input-group input-group-sm">
+            <input type="email" class="form-control"
+                   placeholder="{{ 'Email address'|t }}" aria-label="{{ 'Email address'|t }}">
+            <button class="btn btn-primary" type="button">{{ 'Subscribe'|t }}</button>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="luna-footer-bottom">
+      <span>{{ footer_text }}</span>
+      <div class="d-flex gap-3">
+        <a href="#" class="text-secondary text-decoration-none small">{{ 'Privacy'|t }}</a>
+        <a href="#" class="text-secondary text-decoration-none small">{{ 'Terms'|t }}</a>
+        <a href="#" class="text-secondary text-decoration-none small">{{ 'Drupal'|t }}</a>
+      </div>
+    </div>
+
+  </div>
+</footer>

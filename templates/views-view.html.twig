@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * views-view.html.twig
+ * Luna Theme — Views wrapper.
+ */
+#}
+{% if rows %}
+  {{ rows }}
+{% elseif empty %}
+  <div class="alert alert-secondary">{{ empty }}</div>
+{% endif %}
+{% if pager %}
+  <div class="mt-4">{{ pager }}</div>
+{% endif %}

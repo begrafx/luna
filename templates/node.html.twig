@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * node.html.twig
+ * Luna Theme — Node content template.
+ */
+#}
+<article{{ attributes.addClass('node', 'node--type-' ~ node.bundle|clean_class, 'node--view-mode-' ~ view_mode|clean_class) }}>
+  {{ title_prefix }}
+  {% if not page %}
+    <h2{{ title_attributes.addClass('node__title', 'h4') }}>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+    </h2>
+  {% endif %}
+  {{ title_suffix }}
+
+  {% if display_submitted %}
+    <div class="node__submitted mb-3">
+      <span class="badge bg-secondary me-2">{{ node.bundle|capitalize }}</span>
+      {{ author_picture }}
+      <span class="text-secondary">
+        {{ 'By'|t }} {{ author_name }} &middot; {{ date }}
+      </span>
+    </div>
+  {% endif %}
+
+  <div{{ content_attributes.addClass('node__content') }}>
+    {{ content }}
+  </div>
+</article>

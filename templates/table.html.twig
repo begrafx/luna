@@ -1,0 +1,73 @@
+{#
+/**
+ * @file
+ * table.html.twig
+ * Luna Theme — Bootstrap/Halfmoon responsive table wrapper.
+ */
+#}
+{% if rows or empty %}
+  <div class="table-responsive">
+    <table{{ attributes.addClass('table', 'table-luna', 'table-hover') }}>
+      {% if caption %}
+        <caption>{{ caption }}</caption>
+      {% endif %}
+
+      {% if colgroups %}
+        {% for colgroup in colgroups %}
+          <colgroup{{ colgroup.attributes }}>
+            {% if colgroup.cols %}
+              {% for col in colgroup.cols %}
+                <col{{ col.attributes }}>
+              {% endfor %}
+            {% endif %}
+          </colgroup>
+        {% endfor %}
+      {% endif %}
+
+      {% if header %}
+        <thead>
+          <tr>
+            {% for cell in header %}
+              <{{ cell.tag }}{{ cell.attributes.addClass('fw-semibold') }}>
+                {{ cell.content }}
+              </{{ cell.tag }}>
+            {% endfor %}
+          </tr>
+        </thead>
+      {% endif %}
+
+      {% if rows %}
+        <tbody>
+          {% for row in rows %}
+            <tr{{ row.attributes }}>
+              {% for cell in row.cells %}
+                <{{ cell.tag }}{{ cell.attributes }}>
+                  {{ cell.content }}
+                </{{ cell.tag }}>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      {% elseif empty %}
+        <tbody>
+          <tr>
+            <td class="text-center text-secondary py-4"
+                colspan="{{ header|length ?: 1 }}">{{ empty }}</td>
+          </tr>
+        </tbody>
+      {% endif %}
+
+      {% if footer %}
+        <tfoot>
+          {% for row in footer %}
+            <tr{{ row.attributes }}>
+              {% for cell in row.cells %}
+                <{{ cell.tag }}{{ cell.attributes }}>{{ cell.content }}</{{ cell.tag }}>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tfoot>
+      {% endif %}
+    </table>
+  </div>
+{% endif %}

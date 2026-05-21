@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * status-messages.html.twig
+ * Luna Theme — Drupal messages using Halfmoon/Bootstrap alert component.
+ */
+#}
+
+{% set status_headings = {
+  'status':  'Status message'|t,
+  'error':   'Error message'|t,
+  'warning': 'Warning message'|t,
+  'info':    'Informational message'|t,
+} %}
+
+{% set alert_types = {
+  'status':  'success',
+  'error':   'danger',
+  'warning': 'warning',
+  'info':    'info',
+} %}
+
+{% for type, messages in message_list %}
+  {% set alert_class = alert_types[type] ?? 'info' %}
+  <div role="alert" aria-label="{{ status_headings[type] }}"
+       class="alert alert-{{ alert_class }} alert-dismissible fade show mb-3 luna-alert"
+       data-drupal-messages>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"
+            aria-label="{{ 'Close'|t }}"></button>
+    {% if messages|length > 1 %}
+      <ul class="mb-0 ps-3">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      {{ messages|first }}
+    {% endif %}
+  </div>
+{% endfor %}

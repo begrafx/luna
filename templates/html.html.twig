@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * html.html.twig
+ * Luna Theme — Outer HTML wrapper.
+ *
+ * Sets Halfmoon core theme via data-bs-core attribute and optional dark mode.
+ */
+#}
+<!DOCTYPE html>
+<html{{ html_attributes }}>
+  <head>
+    <head-placeholder token="{{ placeholder_token }}">
+    <title>{{ head_title|safe_join(' | ') }}</title>
+    <css-placeholder token="{{ placeholder_token }}">
+    <js-placeholder token="{{ placeholder_token }}">
+  </head>
+  <body{{ attributes.addClass('luna-wrapper') }}>
+    {# Skip to main content link for accessibility #}
+    <a class="luna-skip-link" href="#main-content">{{ 'Skip to main content'|t }}</a>
+    <js-bottom-placeholder token="{{ placeholder_token }}">
+    {{ page_top }}
+    {{ page }}
+    {{ page_bottom }}
+  </body>
+</html>

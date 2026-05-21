@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * form-element.html.twig
+ * Luna Theme — Individual form element wrapper.
+ */
+#}
+{% set type = element['#type'] %}
+{% set is_checkbox = type in ['checkbox', 'radio'] %}
+
+<div class="{% if is_checkbox %}form-check mb-2{% else %}mb-3{% endif %}">
+  {% if label and not is_checkbox %}
+    {{ label }}
+  {% endif %}
+
+  {{ children }}
+
+  {% if label and is_checkbox %}
+    <label class="form-check-label" for="{{ element.attributes.id }}">
+      {{ label_display != 'none' ? element['#title'] }}
+    </label>
+  {% endif %}
+
+  {% if description.content %}
+    <div class="form-text text-secondary">{{ description.content }}</div>
+  {% endif %}
+
+  {% if errors %}
+    <div class="invalid-feedback d-block">{{ errors }}</div>
+  {% endif %}
+</div>

@@ -1,0 +1,60 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.hero
+    - field.field.block_content.hero.field_hero_heading
+    - field.field.block_content.hero.field_hero_subheading
+    - field.field.block_content.hero.field_hero_cta_text
+    - field.field.block_content.hero.field_hero_cta_url
+    - field.field.block_content.hero.field_hero_style
+  module:
+    - block_content
+    - link
+    - options
+id: block_content.hero.default
+targetEntityType: block_content
+bundle: hero
+mode: default
+content:
+  field_hero_heading:
+    weight: 1
+    label: hidden
+    type: string
+    region: content
+    settings: {}
+    third_party_settings: {}
+  field_hero_subheading:
+    weight: 2
+    label: hidden
+    type: basic_string
+    region: content
+    settings: {}
+    third_party_settings: {}
+  field_hero_cta_text:
+    weight: 3
+    label: hidden
+    type: string
+    region: content
+    settings: {}
+    third_party_settings: {}
+  field_hero_cta_url:
+    weight: 4
+    label: hidden
+    type: link
+    region: content
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {}
+  field_hero_style:
+    weight: 5
+    label: hidden
+    type: list_default
+    region: content
+    settings: {}
+    third_party_settings: {}
+hidden: {}
