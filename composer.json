@@ -1,0 +1,9 @@
+{
+  "name": "begrafx/luna",
+  "type": "drupal-theme",
+  "description": "Drupal 11 theme using NydCSS",
+  "license": "MIT",
+  "require": {
+    "drupal/core": "^11"
+  }
+}
