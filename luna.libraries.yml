@@ -52,3 +52,9 @@ luna-dashboard:
   css:
     theme:
       css/luna-dashboard.css: {}
+
+luna-views:
+  version: VERSION
+  css:
+    theme:
+      css/luna-views.css: {}
