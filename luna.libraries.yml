@@ -16,7 +16,7 @@ halfmoon-framework:
       type: external
       minified: true
       attributes:
-        integrity: 'sha256-CDOy6cOibCWEdsRiZuaHf8dSGGJRYuBGC+mjoJimHGw='
+        integrity: 'sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/wT/o5Ybe0qTqAP+M6bZ2Yk3tZD8M='
         crossorigin: anonymous
 
 global-styling:
@@ -52,9 +52,3 @@ luna-dashboard:
   css:
     theme:
       css/luna-dashboard.css: {}
-
-luna-views:
-  version: VERSION
-  css:
-    theme:
-      css/luna-views.css: {}

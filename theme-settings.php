@@ -1,11 +1,15 @@
 <?php
 /**
- * Luna Theme v0.1.7
+ * Luna Theme v0.1.8
  */
 
 /**
  * @file
  * Theme settings for Luna (Halfmoon CSS Drupal 11 theme).
+ *
+ * Hero content is managed via the Hero block content type —
+ * NOT via theme settings. Edit hero content at:
+ * Structure → Block layout → Custom block library
  */
 
 /**
@@ -14,17 +18,16 @@
 function luna_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
 
   $form['luna_settings'] = [
-    '#type' => 'details',
+    '#type'  => 'details',
     '#title' => t('Luna Theme Settings'),
-    '#open' => TRUE,
+    '#open'  => TRUE,
   ];
 
-  // Halfmoon Core Theme.
   $form['luna_settings']['halfmoon_core'] = [
-    '#type' => 'select',
-    '#title' => t('Halfmoon Core Theme'),
-    '#description' => t('Choose which Halfmoon core theme to apply. Each has a distinct design sensibility.'),
-    '#options' => [
+    '#type'          => 'select',
+    '#title'         => t('Halfmoon Core Theme'),
+    '#description'   => t('Choose which Halfmoon core theme to apply.'),
+    '#options'       => [
       'default' => t('Default – Classic and neutral'),
       'modern'  => t('Modern – Contemporary with refined dark mode'),
       'elegant' => t('Elegant – Refined and sophisticated'),
@@ -32,30 +35,27 @@ function luna_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormSta
     '#default_value' => theme_get_setting('halfmoon_core') ?? 'modern',
   ];
 
-  // Default Color Mode.
   $form['luna_settings']['color_mode'] = [
-    '#type' => 'select',
-    '#title' => t('Default Color Mode'),
-    '#description' => t('Set the default color mode. Users can override this if the toggle is enabled.'),
-    '#options' => [
+    '#type'          => 'select',
+    '#title'         => t('Default Color Mode'),
+    '#description'   => t('Starting mode for first-time visitors. Returning visitors keep their last preference.'),
+    '#options'       => [
       'light' => t('Light'),
       'dark'  => t('Dark'),
     ],
     '#default_value' => theme_get_setting('color_mode') ?? 'light',
   ];
 
-  // Dark mode toggle.
   $form['luna_settings']['dark_mode_toggle'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Show dark/light mode toggle in navbar'),
+    '#type'          => 'checkbox',
+    '#title'         => t('Show dark/light mode toggle in navbar'),
     '#default_value' => theme_get_setting('dark_mode_toggle') ?? TRUE,
   ];
 
-  // Layout width.
   $form['luna_settings']['layout'] = [
-    '#type' => 'select',
-    '#title' => t('Layout Width'),
-    '#options' => [
+    '#type'          => 'select',
+    '#title'         => t('Layout Width'),
+    '#options'       => [
       'fluid'  => t('Full width (fluid container)'),
       'wide'   => t('Wide (container-xl)'),
       'normal' => t('Normal (container-lg)'),
@@ -64,77 +64,31 @@ function luna_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormSta
     '#default_value' => theme_get_setting('layout') ?? 'wide',
   ];
 
-  // Sidebar position.
-  $form['luna_settings']['sidebar_position'] = [
-    '#type' => 'select',
-    '#title' => t('Sidebar Position'),
-    '#options' => [
-      'right' => t('Right'),
-      'left'  => t('Left'),
-    ],
-    '#default_value' => theme_get_setting('sidebar_position') ?? 'right',
-  ];
-
-  // Hero section settings.
+  // Hero section — informational only, no fields.
   $form['luna_hero'] = [
-    '#type' => 'details',
+    '#type'  => 'details',
     '#title' => t('Hero Section'),
-    '#open' => TRUE,
+    '#open'  => TRUE,
   ];
 
-  $form['luna_hero']['show_hero'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Show hero section on front page'),
-    '#default_value' => theme_get_setting('show_hero') ?? TRUE,
+  $form['luna_hero']['hero_info'] = [
+    '#type'   => 'markup',
+    '#markup' => '<div class="messages messages--info">'
+      . '<p><strong>' . t('Hero content is managed as a Drupal block.') . '</strong></p>'
+      . '<p>' . t('Go to <a href="/admin/content/block">Structure → Custom block library</a> and edit your <strong>Hero</strong> block to change the heading, subheading, button text, button URL, and style.') . '</p>'
+      . '</div>',
   ];
 
-  $form['luna_hero']['hero_heading'] = [
-    '#type' => 'textfield',
-    '#title' => t('Hero Heading'),
-    '#default_value' => theme_get_setting('hero_heading') ?? 'Welcome to Luna',
-  ];
-
-  $form['luna_hero']['hero_subheading'] = [
-    '#type' => 'textarea',
-    '#title' => t('Hero Subheading'),
-    '#rows' => 3,
-    '#default_value' => theme_get_setting('hero_subheading') ?? 'A beautiful Drupal 11 theme powered by Halfmoon CSS.',
-  ];
-
-  $form['luna_hero']['hero_cta_text'] = [
-    '#type' => 'textfield',
-    '#title' => t('Hero CTA Button Text'),
-    '#default_value' => theme_get_setting('hero_cta_text') ?? 'Get Started',
-  ];
-
-  $form['luna_hero']['hero_cta_url'] = [
-    '#type' => 'textfield',
-    '#title' => t('Hero CTA Button URL'),
-    '#default_value' => theme_get_setting('hero_cta_url') ?? '/node/add',
-  ];
-
-  $form['luna_hero']['hero_style'] = [
-    '#type' => 'select',
-    '#title' => t('Hero Style'),
-    '#options' => [
-      'gradient' => t('Gradient (Luna default)'),
-      'dark'     => t('Dark solid'),
-      'light'    => t('Light solid'),
-      'image'    => t('Background image (set image in Hero region)'),
-    ],
-    '#default_value' => theme_get_setting('hero_style') ?? 'gradient',
-  ];
-
-  // Footer settings.
   $form['luna_footer'] = [
-    '#type' => 'details',
+    '#type'  => 'details',
     '#title' => t('Footer'),
-    '#open' => FALSE,
+    '#open'  => FALSE,
   ];
 
   $form['luna_footer']['footer_text'] = [
-    '#type' => 'textfield',
-    '#title' => t('Footer copyright text'),
-    '#default_value' => theme_get_setting('footer_text') ?? '© ' . date('Y') . ' My Site. Built with Luna & Halfmoon.',
+    '#type'          => 'textfield',
+    '#title'         => t('Footer copyright text'),
+    '#description'   => t('Leave blank to auto-generate from site name and current year.'),
+    '#default_value' => theme_get_setting('footer_text') ?? '',
   ];
 }

@@ -2,9 +2,8 @@ name: Luna
 type: theme
 description: 'A sleek, modern Drupal 11 theme built on the Halfmoon CSS framework. Features dark/light mode, responsive layouts, hero sections, and all Halfmoon components.'
 package: Custom
-version: '0.1.7'
+version: '0.1.8'
 core_version_requirement: ^11
-base theme: false
 
 dependencies:
   - drupal:block_content
